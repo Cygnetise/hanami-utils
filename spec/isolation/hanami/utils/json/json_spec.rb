@@ -6,7 +6,7 @@ require "hanami/utils/json"
 RSpec.describe Hanami::Utils::Json do
   describe "with JSON" do
     it "uses JSON engine" do
-      expect(Hanami::Utils::Json.class_variable_get(:@@engine)).to eq(JSON)
+      expect(Hanami::Utils::Json.class_variable_get(:@@engine)).to be_instance_of(Hanami::Utils::Json::MultiJsonAdapter)
     end
 
     describe ".parse" do
