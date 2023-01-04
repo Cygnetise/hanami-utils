@@ -3,6 +3,8 @@
 source "https://rubygems.org"
 gemspec
 
+gem 'warning'
+
 unless ENV["CI"]
   gem "byebug", require: false, platforms: :mri if RUBY_VERSION >= "2.3.0"
   gem "yard",   require: false
