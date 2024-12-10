@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "hanami/utils/class_attribute"
-require "hanami/utils/blank"
+require "hanami/cyg_utils/class_attribute"
+require "hanami/cyg_utils/blank"
 
 module Hanami
-  module Utils
+  module CygUtils
     # String inflector
     #
     # @since 0.4.1
@@ -205,7 +205,7 @@ module Hanami
       # @api private
       Y    = "y"
 
-      include Utils::ClassAttribute
+      include CygUtils::ClassAttribute
 
       # Irregular rules for plurals
       #
@@ -245,7 +245,7 @@ module Hanami
         "species" => "species",
         "police" => "police",
         # regressions
-        # https://github.com/hanami/utils/issues/106
+        # https://github.com/hanami/cyg_utils/issues/106
         "album" => "albums",
         "area" => "areas"
       )
@@ -301,13 +301,13 @@ module Hanami
       #
       # @since 0.6.0
       #
-      # @see Hanami::Utils::Inflector.exception
-      # @see Hanami::Utils::Inflector.uncountable
+      # @see Hanami::CygUtils::Inflector.exception
+      # @see Hanami::CygUtils::Inflector.uncountable
       #
       # @example
-      #   require 'hanami/utils/inflector'
+      #   require 'hanami/cyg_utils/inflector'
       #
-      #   Hanami::Utils::Inflector.inflections do
+      #   Hanami::CygUtils::Inflector.inflections do
       #     exception   'analysis', 'analyses'
       #     exception   'alga',     'algae'
       #     uncountable 'music', 'butter'
@@ -323,13 +323,13 @@ module Hanami
       #
       # @since 0.6.0
       #
-      # @see Hanami::Utils::Inflector.inflections
-      # @see Hanami::Utils::Inflector.uncountable
+      # @see Hanami::CygUtils::Inflector.inflections
+      # @see Hanami::CygUtils::Inflector.uncountable
       #
       # @example
-      #   require 'hanami/utils/inflector'
+      #   require 'hanami/cyg_utils/inflector'
       #
-      #   Hanami::Utils::Inflector.inflections do
+      #   Hanami::CygUtils::Inflector.inflections do
       #     exception 'alga', 'algae'
       #   end
       def self.exception(singular, plural)
@@ -353,13 +353,13 @@ module Hanami
       #
       # @since 0.6.0
       #
-      # @see Hanami::Utils::Inflector.inflections
-      # @see Hanami::Utils::Inflector.exception
+      # @see Hanami::CygUtils::Inflector.inflections
+      # @see Hanami::CygUtils::Inflector.exception
       #
       # @example
-      #   require 'hanami/utils/inflector'
+      #   require 'hanami/cyg_utils/inflector'
       #
-      #   Hanami::Utils::Inflector.inflections do
+      #   Hanami::CygUtils::Inflector.inflections do
       #     uncountable 'music', 'art'
       #   end
       def self.uncountable(*words)
@@ -381,7 +381,7 @@ module Hanami
       # rubocop:disable Metrics/CyclomaticComplexity
       # rubocop:disable Style/PerlBackrefs
       def self.pluralize(string)
-        return string if string.nil? || string =~ Utils::Blank::STRING_MATCHER
+        return string if string.nil? || string =~ CygUtils::Blank::STRING_MATCHER
 
         case string
         when plurals
@@ -438,7 +438,7 @@ module Hanami
       # rubocop:disable Metrics/PerceivedComplexity
       # rubocop:disable Style/PerlBackrefs
       def self.singularize(string)
-        return string if string.nil? || string =~ Utils::Blank::STRING_MATCHER
+        return string if string.nil? || string =~ CygUtils::Blank::STRING_MATCHER
 
         case string
         when singulars

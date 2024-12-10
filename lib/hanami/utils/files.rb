@@ -2,10 +2,10 @@
 
 require "pathname"
 require "fileutils"
-require "hanami/utils/deprecation"
+require "hanami/cyg_utils/deprecation"
 
 module Hanami
-  module Utils
+  module CygUtils
     # Files utilities
     #
     # @since 1.1.0
@@ -44,7 +44,7 @@ module Hanami
       #
       # @since 1.1.0
       def self.rewrite(path, *content)
-        Hanami::Utils::Deprecation.new(
+        Hanami::CygUtils::Deprecation.new(
           "`.rewrite' is deprecated, please use `.write'"
         )
         raise Errno::ENOENT unless File.exist?(path)
@@ -76,13 +76,13 @@ module Hanami
       # @see .mkdir_p
       #
       # @example
-      #   require "hanami/utils/files"
+      #   require "hanami/cyg_utils/files"
       #
-      #   Hanami::Utils::Files.mkdir("path/to/directory")
+      #   Hanami::CygUtils::Files.mkdir("path/to/directory")
       #     # => creates the `path/to/directory` directory
       #
       #   # WRONG this isn't probably what you want, check `.mkdir_p`
-      #   Hanami::Utils::Files.mkdir("path/to/file.rb")
+      #   Hanami::CygUtils::Files.mkdir("path/to/file.rb")
       #     # => creates the `path/to/file.rb` directory
       def self.mkdir(path)
         FileUtils.mkdir_p(path)
@@ -100,13 +100,13 @@ module Hanami
       # @see .mkdir
       #
       # @example
-      #   require "hanami/utils/files"
+      #   require "hanami/cyg_utils/files"
       #
-      #   Hanami::Utils::Files.mkdir_p("path/to/file.rb")
+      #   Hanami::CygUtils::Files.mkdir_p("path/to/file.rb")
       #     # => creates the `path/to` directory, but NOT `file.rb`
       #
       #   # WRONG it doesn't create the last directory, check `.mkdir`
-      #   Hanami::Utils::Files.mkdir_p("path/to/directory")
+      #   Hanami::CygUtils::Files.mkdir_p("path/to/directory")
       #     # => creates the `path/to` directory
       def self.mkdir_p(path)
         Pathname.new(path).dirname.mkpath
@@ -310,7 +310,7 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require "hanami/utils/files"
+      #   require "hanami/cyg_utils/files"
       #
       #   puts File.read("app.rb")
       #
@@ -320,7 +320,7 @@ module Hanami
       #   #   end
       #   # end
       #
-      #   Hanami::Utils::Files.remove_block("app.rb", "configure")
+      #   Hanami::CygUtils::Files.remove_block("app.rb", "configure")
       #
       #   puts File.read("app.rb")
       #
@@ -349,12 +349,12 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require "hanami/utils/files"
+      #   require "hanami/cyg_utils/files"
       #
-      #   Hanami::Utils::Files.exist?(__FILE__) # => true
-      #   Hanami::Utils::Files.exist?(__dir__)  # => true
+      #   Hanami::CygUtils::Files.exist?(__FILE__) # => true
+      #   Hanami::CygUtils::Files.exist?(__dir__)  # => true
       #
-      #   Hanami::Utils::Files.exist?("missing_file") # => false
+      #   Hanami::CygUtils::Files.exist?("missing_file") # => false
       def self.exist?(path)
         File.exist?(path)
       end
@@ -368,12 +368,12 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require "hanami/utils/files"
+      #   require "hanami/cyg_utils/files"
       #
-      #   Hanami::Utils::Files.directory?(__dir__)  # => true
-      #   Hanami::Utils::Files.directory?(__FILE__) # => false
+      #   Hanami::CygUtils::Files.directory?(__dir__)  # => true
+      #   Hanami::CygUtils::Files.directory?(__FILE__) # => false
       #
-      #   Hanami::Utils::Files.directory?("missing_directory") # => false
+      #   Hanami::CygUtils::Files.directory?("missing_directory") # => false
       def self.directory?(path)
         File.directory?(path)
       end

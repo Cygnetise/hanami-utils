@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "hanami/utils/inflector"
+require "hanami/cyg_utils/inflector"
 require "transproc"
 require "concurrent/map"
 
 module Hanami
-  module Utils
+  module CygUtils
     # String on steroids
     #
     # @since 0.1.0
@@ -84,7 +84,7 @@ module Hanami
       # Applies the given transformation(s) to `input`
       #
       # It performs a pipeline of transformations, by applying the given
-      # functions from `Hanami::Utils::String` and `::String`.
+      # functions from `Hanami::CygUtils::String` and `::String`.
       # The transformations are applied in the given order.
       #
       # It doesn't mutate the input, unless you use destructive methods from `::String`
@@ -92,15 +92,15 @@ module Hanami
       # @param input [::String] the string to be transformed
       # @param transformations [Array<Symbol,Proc,Array>] one or many
       #   transformations expressed as:
-      #     * `Symbol` to reference a function from `Hanami::Utils::String` or `String`.
+      #     * `Symbol` to reference a function from `Hanami::CygUtils::String` or `String`.
       #     * `Proc` an anonymous function that MUST accept one input
       #     * `Array` where the first element is a `Symbol` to reference a
-      #       function from `Hanami::Utils::String` or `String` and the rest of
+      #       function from `Hanami::CygUtils::String` or `String` and the rest of
       #       the elements are the arguments to pass
       #
       # @return [::String] the result of the transformations
       #
-      # @raise [NoMethodError] if a `Hanami::Utils::String` and `::String`
+      # @raise [NoMethodError] if a `Hanami::CygUtils::String` and `::String`
       #   don't respond to a given method name
       #
       # @raise [ArgumentError] if a Proc transformation has an arity not equal
@@ -109,27 +109,27 @@ module Hanami
       # @since 1.1.0
       #
       # @example Basic usage
-      #   require "hanami/utils/string"
+      #   require "hanami/cyg_utils/string"
       #
-      #   Hanami::Utils::String.transform("hanami/utils", :underscore, :classify)
+      #   Hanami::CygUtils::String.transform("hanami/utils", :underscore, :classify)
       #     # => "Hanami::Utils"
       #
-      #   Hanami::Utils::String.transform("Hanami::Utils::String", [:gsub, /[aeiouy]/, "*"], :demodulize)
+      #   Hanami::CygUtils::String.transform("Hanami::CygUtils::String", [:gsub, /[aeiouy]/, "*"], :demodulize)
       #     # => "H*n*m*"
       #
-      #   Hanami::Utils::String.transform("Hanami", ->(s) { s.upcase })
+      #   Hanami::CygUtils::String.transform("Hanami", ->(s) { s.upcase })
       #     # => "HANAMI"
       #
       # @example Unkown transformation
-      #   require "hanami/utils/string"
+      #   require "hanami/cyg_utils/string"
       #
-      #   Hanami::Utils::String.transform("Sakura", :foo)
+      #   Hanami::CygUtils::String.transform("Sakura", :foo)
       #     # => NoMethodError: undefined method `:foo' for "Sakura":String
       #
       # @example Proc with arity not equal to 1
-      #   require "hanami/utils/string"
+      #   require "hanami/cyg_utils/string"
       #
-      #   Hanami::Utils::String.transform("Cherry", -> { "blossom" }))
+      #   Hanami::CygUtils::String.transform("Cherry", -> { "blossom" }))
       #     # => ArgumentError: wrong number of arguments (given 1, expected 0)
       #
       def self.transform(input, *transformations)
@@ -172,9 +172,9 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.titleize('hanami utils') # => "Hanami Utils"
+      #   Hanami::CygUtils::String.titleize('hanami utils') # => "Hanami Utils"
       def self.titleize(input)
         string = ::String.new(input.to_s)
         underscore(string).split(CLASSIFY_SEPARATOR).map(&:capitalize).join(TITLEIZE_SEPARATOR)
@@ -189,17 +189,17 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.capitalize('hanami') # => "Hanami"
+      #   Hanami::CygUtils::String.capitalize('hanami') # => "Hanami"
       #
-      #   Hanami::Utils::String.capitalize('hanami utils') # => "Hanami utils"
+      #   Hanami::CygUtils::String.capitalize('hanami utils') # => "Hanami utils"
       #
-      #   Hanami::Utils::String.capitalize('Hanami Utils') # => "Hanami utils"
+      #   Hanami::CygUtils::String.capitalize('Hanami Utils') # => "Hanami utils"
       #
-      #   Hanami::Utils::String.capitalize('hanami_utils') # => "Hanami utils"
+      #   Hanami::CygUtils::String.capitalize('hanami_utils') # => "Hanami utils"
       #
-      #   Hanami::Utils::String.capitalize('hanami-utils') # => "Hanami utils"
+      #   Hanami::CygUtils::String.capitalize('hanami-utils') # => "Hanami utils"
       def self.capitalize(input)
         string = ::String.new(input.to_s)
         head, *tail = underscore(string).split(CLASSIFY_SEPARATOR)
@@ -216,9 +216,9 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.classify('hanami_utils') # => 'HanamiUtils'
+      #   Hanami::CygUtils::String.classify('hanami_utils') # => 'HanamiUtils'
       def self.classify(input)
         string = ::String.new(input.to_s)
         words = underscore(string).split(CLASSIFY_WORD_SEPARATOR).map!(&:capitalize)
@@ -243,9 +243,9 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.underscore('HanamiUtils') # => 'hanami_utils'
+      #   Hanami::CygUtils::String.underscore('HanamiUtils') # => 'hanami_utils'
       def self.underscore(input)
         string = ::String.new(input.to_s)
         string.gsub!(NAMESPACE_SEPARATOR, UNDERSCORE_SEPARATOR)
@@ -265,13 +265,13 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.dasherize('Hanami Utils') # => 'hanami-utils'
+      #   Hanami::CygUtils::String.dasherize('Hanami Utils') # => 'hanami-utils'
 
-      #   Hanami::Utils::String.dasherize('hanami_utils') # => 'hanami-utils'
+      #   Hanami::CygUtils::String.dasherize('hanami_utils') # => 'hanami-utils'
       #
-      #   Hanami::Utils::String.dasherize('HanamiUtils') # => "hanami-utils"
+      #   Hanami::CygUtils::String.dasherize('HanamiUtils') # => "hanami-utils"
       def self.dasherize(input)
         string = ::String.new(input.to_s)
         underscore(string).split(CLASSIFY_SEPARATOR).join(DASHERIZE_SEPARATOR)
@@ -286,11 +286,11 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.demodulize('Hanami::Utils::String') # => 'String'
+      #   Hanami::CygUtils::String.demodulize('Hanami::CygUtils::String') # => 'String'
       #
-      #   Hanami::Utils::String.demodulize('String') # => 'String'
+      #   Hanami::CygUtils::String.demodulize('String') # => 'String'
       def self.demodulize(input)
         ::String.new(input.to_s).split(NAMESPACE_SEPARATOR).last
       end
@@ -304,11 +304,11 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.namespace('Hanami::Utils::String') # => 'Hanami'
+      #   Hanami::CygUtils::String.namespace('Hanami::CygUtils::String') # => 'Hanami'
       #
-      #   Hanami::Utils::String.namespace('String') # => 'String'
+      #   Hanami::CygUtils::String.namespace('String') # => 'String'
       def self.namespace(input)
         ::String.new(input.to_s).split(NAMESPACE_SEPARATOR).first
       end
@@ -321,13 +321,13 @@ module Hanami
       #
       # @since 1.1.0
       #
-      # @see Hanami::Utils::Inflector
+      # @see Hanami::CygUtils::Inflector
       # @deprecated
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.pluralize('book') # => 'books'
+      #   Hanami::CygUtils::String.pluralize('book') # => 'books'
       def self.pluralize(input)
         string = ::String.new(input.to_s)
         Inflector.pluralize(string)
@@ -342,12 +342,12 @@ module Hanami
       # @since 1.1.0
       # @deprecated
       #
-      # @see Hanami::Utils::Inflector
+      # @see Hanami::CygUtils::Inflector
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.singularize('books') # => 'book'
+      #   Hanami::CygUtils::String.singularize('books') # => 'book'
       def self.singularize(input)
         string = ::String.new(input.to_s)
         Inflector.singularize(string)
@@ -368,9 +368,9 @@ module Hanami
       # @since 1.1.0
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   Hanami::Utils::String.rsub('authors/books/index', %r{/}, '#')
+      #   Hanami::CygUtils::String.rsub('authors/books/index', %r{/}, '#')
       #     # => 'authors/books#index'
       def self.rsub(input, pattern, replacement)
         string = ::String.new(input.to_s)
@@ -387,7 +387,7 @@ module Hanami
       #
       # @param string [::String, Symbol] the value we want to initialize
       #
-      # @return [Hanami::Utils::String] self
+      # @return [Hanami::CygUtils::String] self
       #
       # @since 0.1.0
       # @deprecated
@@ -397,15 +397,15 @@ module Hanami
 
       # Returns a titleized version of the string
       #
-      # @return [Hanami::Utils::String] the transformed string
+      # @return [Hanami::CygUtils::String] the transformed string
       #
       # @since 0.4.0
-      # @deprecated Use {Hanami::Utils::String.titleize}
+      # @deprecated Use {Hanami::CygUtils::String.titleize}
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   string = Hanami::Utils::String.new 'hanami utils'
+      #   string = Hanami::CygUtils::String.new 'hanami utils'
       #   string.titleize # => "Hanami Utils"
       def titleize
         self.class.new underscore.split(CLASSIFY_SEPARATOR).map(&:capitalize).join(TITLEIZE_SEPARATOR)
@@ -413,27 +413,27 @@ module Hanami
 
       # Returns a capitalized version of the string
       #
-      # @return [Hanami::Utils::String] the transformed string
+      # @return [Hanami::CygUtils::String] the transformed string
       #
       # @since 0.5.2
-      # @deprecated Use {Hanami::Utils::String.capitalize}
+      # @deprecated Use {Hanami::CygUtils::String.capitalize}
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   string = Hanami::Utils::String.new 'hanami'
+      #   string = Hanami::CygUtils::String.new 'hanami'
       #   string.capitalize # => "Hanami"
       #
-      #   string = Hanami::Utils::String.new 'hanami utils'
+      #   string = Hanami::CygUtils::String.new 'hanami utils'
       #   string.capitalize # => "Hanami utils"
       #
-      #   string = Hanami::Utils::String.new 'Hanami Utils'
+      #   string = Hanami::CygUtils::String.new 'Hanami Utils'
       #   string.capitalize # => "Hanami utils"
       #
-      #   string = Hanami::Utils::String.new 'hanami_utils'
+      #   string = Hanami::CygUtils::String.new 'hanami_utils'
       #   string.capitalize # => "Hanami utils"
       #
-      #   string = Hanami::Utils::String.new 'hanami-utils'
+      #   string = Hanami::CygUtils::String.new 'hanami-utils'
       #   string.capitalize # => "Hanami utils"
       def capitalize
         head, *tail = underscore.split(CLASSIFY_SEPARATOR)
@@ -445,15 +445,15 @@ module Hanami
 
       # Returns a CamelCase version of the string
       #
-      # @return [Hanami::Utils::String] the transformed string
+      # @return [Hanami::CygUtils::String] the transformed string
       #
       # @since 0.1.0
-      # @deprecated Use {Hanami::Utils::String.classify}
+      # @deprecated Use {Hanami::CygUtils::String.classify}
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   string = Hanami::Utils::String.new 'hanami_utils'
+      #   string = Hanami::CygUtils::String.new 'hanami_utils'
       #   string.classify # => 'HanamiUtils'
       def classify
         words = underscore.split(CLASSIFY_WORD_SEPARATOR).map!(&:capitalize)
@@ -471,15 +471,15 @@ module Hanami
       # Revised version of `ActiveSupport::Inflector.underscore` implementation
       # @see https://github.com/rails/rails/blob/feaa6e2048fe86bcf07e967d6e47b865e42e055b/activesupport/lib/active_support/inflector/methods.rb#L90
       #
-      # @return [Hanami::Utils::String] the transformed string
-      # @deprecated Use {Hanami::Utils::String.underscore}
+      # @return [Hanami::CygUtils::String] the transformed string
+      # @deprecated Use {Hanami::CygUtils::String.underscore}
       #
       # @since 0.1.0
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   string = Hanami::Utils::String.new 'HanamiUtils'
+      #   string = Hanami::CygUtils::String.new 'HanamiUtils'
       #   string.underscore # => 'hanami_utils'
       def underscore
         new_string = gsub(NAMESPACE_SEPARATOR, UNDERSCORE_SEPARATOR)
@@ -492,21 +492,21 @@ module Hanami
 
       # Returns a downcased and dash separated version of the string
       #
-      # @return [Hanami::Utils::String] the transformed string
+      # @return [Hanami::CygUtils::String] the transformed string
       #
       # @since 0.4.0
-      # @deprecated Use {Hanami::Utils::String.dasherize}
+      # @deprecated Use {Hanami::CygUtils::String.dasherize}
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   string = Hanami::Utils::String.new 'Hanami Utils'
+      #   string = Hanami::CygUtils::String.new 'Hanami Utils'
       #   string.dasherize # => 'hanami-utils'
       #
-      #   string = Hanami::Utils::String.new 'hanami_utils'
+      #   string = Hanami::CygUtils::String.new 'hanami_utils'
       #   string.dasherize # => 'hanami-utils'
       #
-      #   string = Hanami::Utils::String.new 'HanamiUtils'
+      #   string = Hanami::CygUtils::String.new 'HanamiUtils'
       #   string.dasherize # => "hanami-utils"
       def dasherize
         self.class.new underscore.split(CLASSIFY_SEPARATOR).join(DASHERIZE_SEPARATOR)
@@ -514,18 +514,18 @@ module Hanami
 
       # Returns the string without the Ruby namespace of the class
       #
-      # @return [Hanami::Utils::String] the transformed string
+      # @return [Hanami::CygUtils::String] the transformed string
       #
       # @since 0.1.0
-      # @deprecated Use {Hanami::Utils::String.demodulize}
+      # @deprecated Use {Hanami::CygUtils::String.demodulize}
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   string = Hanami::Utils::String.new 'Hanami::Utils::String'
+      #   string = Hanami::CygUtils::String.new 'Hanami::CygUtils::String'
       #   string.demodulize # => 'String'
       #
-      #   string = Hanami::Utils::String.new 'String'
+      #   string = Hanami::CygUtils::String.new 'String'
       #   string.demodulize # => 'String'
       def demodulize
         self.class.new split(NAMESPACE_SEPARATOR).last
@@ -533,18 +533,18 @@ module Hanami
 
       # Returns the top level namespace name
       #
-      # @return [Hanami::Utils::String] the transformed string
+      # @return [Hanami::CygUtils::String] the transformed string
       #
       # @since 0.1.2
-      # @deprecated Use {Hanami::Utils::String.namespace}
+      # @deprecated Use {Hanami::CygUtils::String.namespace}
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   string = Hanami::Utils::String.new 'Hanami::Utils::String'
+      #   string = Hanami::CygUtils::String.new 'Hanami::CygUtils::String'
       #   string.namespace # => 'Hanami'
       #
-      #   string = Hanami::Utils::String.new 'String'
+      #   string = Hanami::CygUtils::String.new 'String'
       #   string.namespace # => 'String'
       def namespace
         self.class.new split(NAMESPACE_SEPARATOR).first
@@ -561,9 +561,9 @@ module Hanami
       # @deprecated
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   string = Hanami::Utils::String.new 'Hanami::(Utils|App)'
+      #   string = Hanami::CygUtils::String.new 'Hanami::(Utils|App)'
       #   string.tokenize do |token|
       #     puts token
       #   end
@@ -589,26 +589,26 @@ module Hanami
 
       # Returns a pluralized version of self.
       #
-      # @return [Hanami::Utils::String] the pluralized string.
+      # @return [Hanami::CygUtils::String] the pluralized string.
       #
       # @api private
       # @since 0.4.1
       # @deprecated
       #
-      # @see Hanami::Utils::Inflector
+      # @see Hanami::CygUtils::Inflector
       def pluralize
         self.class.new Inflector.pluralize(self)
       end
 
       # Returns a singularized version of self.
       #
-      # @return [Hanami::Utils::String] the singularized string.
+      # @return [Hanami::CygUtils::String] the singularized string.
       #
       # @api private
       # @since 0.4.1
       # @deprecated
       #
-      # @see Hanami::Utils::Inflector
+      # @see Hanami::CygUtils::Inflector
       def singularize
         self.class.new Inflector.singularize(self)
       end
@@ -695,24 +695,24 @@ module Hanami
       # This method does NOT mutate the original string.
       #
       # @param pattern [Regexp, String] the pattern to find
-      # @param replacement [String, Hanami::Utils::String] the string to replace
+      # @param replacement [String, Hanami::CygUtils::String] the string to replace
       #
-      # @return [Hanami::Utils::String] the replaced string
+      # @return [Hanami::CygUtils::String] the replaced string
       #
       # @since 0.6.0
-      # @deprecated Use {Hanami::Utils::String.rsub}
+      # @deprecated Use {Hanami::CygUtils::String.rsub}
       #
       # @example
-      #   require 'hanami/utils/string'
+      #   require 'hanami/cyg_utils/string'
       #
-      #   string = Hanami::Utils::String.new('authors/books/index')
+      #   string = Hanami::CygUtils::String.new('authors/books/index')
       #   result = string.rsub(/\//, '#')
       #
       #   puts string
-      #     # => #<Hanami::Utils::String:0x007fdb41233ad8 @string="authors/books/index">
+      #     # => #<Hanami::CygUtils::String:0x007fdb41233ad8 @string="authors/books/index">
       #
       #   puts result
-      #     # => #<Hanami::Utils::String:0x007fdb41232ed0 @string="authors/books#index">
+      #     # => #<Hanami::CygUtils::String:0x007fdb41232ed0 @string="authors/books#index">
       def rsub(pattern, replacement)
         if i = rindex(pattern)
           s    = @string.dup

@@ -91,7 +91,7 @@ module Hanami
       # @since 1.3.5
       # @api private
       #
-      # @see https://github.com/hanami/utils/pull/342
+      # @see https://github.com/hanami/cyg_utils/pull/342
       def _key_paths?(value)
         value.is_a?(Enumerable) && !value.is_a?(File)
       end

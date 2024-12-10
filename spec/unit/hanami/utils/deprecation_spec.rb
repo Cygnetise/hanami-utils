@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "hanami/utils/deprecation"
+require "hanami/cyg_utils/deprecation"
 
 class DeprecationTest
   def old_method
-    Hanami::Utils::Deprecation.new("old_method is deprecated, please use new_method")
+    Hanami::CygUtils::Deprecation.new("old_method is deprecated, please use new_method")
     new_method
   end
 
@@ -22,7 +22,7 @@ class DeprecationWrapperTest
   end
 end
 
-RSpec.describe Hanami::Utils::Deprecation do
+RSpec.describe Hanami::CygUtils::Deprecation do
   it "prints a deprecation warning for direct call" do
     expect { DeprecationTest.new.old_method }
       .to output(include("old_method is deprecated, please use new_method - called from: #{__FILE__}:27")).to_stderr

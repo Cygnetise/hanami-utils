@@ -2,9 +2,9 @@
 
 require "bigdecimal"
 require "ostruct"
-require "hanami/utils/hash"
+require "hanami/cyg_utils/hash"
 
-RSpec.describe Hanami::Utils::Hash do
+RSpec.describe Hanami::CygUtils::Hash do
   describe ".symbolize" do
     it "returns ::Hash" do
       hash = described_class.symbolize("fub" => "baz")
@@ -286,44 +286,44 @@ RSpec.describe Hanami::Utils::Hash do
     end
 
     it "holds values passed to the constructor", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("foo" => "bar")
+      hash = Hanami::CygUtils::Hash.new("foo" => "bar")
       expect(hash["foo"]).to eq("bar")
     end
 
     it "assigns default via block", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new { |h, k| h[k] = [] }
+      hash = Hanami::CygUtils::Hash.new { |h, k| h[k] = [] }
       hash["foo"].push "bar"
 
       expect(hash).to eq("foo" => ["bar"])
     end
 
-    it "accepts a Hanami::Utils::Hash", silence_deprecations: true do
-      arg  = Hanami::Utils::Hash.new("foo" => "bar")
-      hash = Hanami::Utils::Hash.new(arg)
+    it "accepts a Hanami::CygUtils::Hash", silence_deprecations: true do
+      arg  = Hanami::CygUtils::Hash.new("foo" => "bar")
+      hash = Hanami::CygUtils::Hash.new(arg)
 
       expect(hash.to_h).to be_kind_of(::Hash)
     end
 
     it "accepts object that implements #to_hash", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new(input_to_hash)
+      hash = Hanami::CygUtils::Hash.new(input_to_hash)
 
       expect(hash.to_h).to eq(input_to_hash.to_hash)
     end
 
     it "accepts frozen values", silence_deprecations: true do
-      expect { Hanami::Utils::Hash.new({}.freeze) }
+      expect { Hanami::CygUtils::Hash.new({}.freeze) }
         .to_not raise_error
     end
 
     it "raises error when object doesn't implement #to_hash" do
-      expect { Hanami::Utils::Hash.new(input_to_h) }
+      expect { Hanami::CygUtils::Hash.new(input_to_h) }
         .to raise_error(NoMethodError)
     end
   end
 
   describe "#symbolize!" do
     it "symbolize keys", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("fub" => "baz")
+      hash = Hanami::CygUtils::Hash.new("fub" => "baz")
       hash.symbolize!
 
       expect(hash["fub"]).to be_nil
@@ -331,7 +331,7 @@ RSpec.describe Hanami::Utils::Hash do
     end
 
     it "does not symbolize nested hashes", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("nested" => {"key" => "value"})
+      hash = Hanami::CygUtils::Hash.new("nested" => {"key" => "value"})
       hash.symbolize!
 
       expect(hash[:nested].keys).to eq(["key"])
@@ -340,7 +340,7 @@ RSpec.describe Hanami::Utils::Hash do
 
   describe "#deep_symbolize!" do
     it "symbolize keys", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("fub" => "baz")
+      hash = Hanami::CygUtils::Hash.new("fub" => "baz")
       hash.deep_symbolize!
 
       expect(hash["fub"]).to be_nil
@@ -348,15 +348,15 @@ RSpec.describe Hanami::Utils::Hash do
     end
 
     it "symbolizes nested hashes", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("nested" => {"key" => "value"})
+      hash = Hanami::CygUtils::Hash.new("nested" => {"key" => "value"})
       hash.deep_symbolize!
 
-      expect(hash[:nested]).to be_kind_of Hanami::Utils::Hash
+      expect(hash[:nested]).to be_kind_of Hanami::CygUtils::Hash
       expect(hash[:nested][:key]).to eq("value")
     end
 
     it "symbolizes deep nested hashes", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("nested1" => {"nested2" => {"nested3" => {"key" => 1}}})
+      hash = Hanami::CygUtils::Hash.new("nested1" => {"nested2" => {"nested3" => {"key" => 1}}})
       hash.deep_symbolize!
 
       expect(hash.keys).to eq([:nested1])
@@ -373,25 +373,25 @@ RSpec.describe Hanami::Utils::Hash do
       expect(hash3[:key]).to eq(1)
     end
 
-    it "symbolize nested Hanami::Utils::Hashes", silence_deprecations: true do
-      nested = Hanami::Utils::Hash.new("key" => "value")
-      hash = Hanami::Utils::Hash.new("nested" => nested)
+    it "symbolize nested Hanami::CygUtils::Hashes", silence_deprecations: true do
+      nested = Hanami::CygUtils::Hash.new("key" => "value")
+      hash = Hanami::CygUtils::Hash.new("nested" => nested)
       hash.deep_symbolize!
 
-      expect(hash[:nested]).to be_kind_of Hanami::Utils::Hash
+      expect(hash[:nested]).to be_kind_of Hanami::CygUtils::Hash
       expect(hash[:nested][:key]).to eq("value")
     end
 
     it "symbolize nested object that responds to to_hash", silence_deprecations: true do
-      nested = Hanami::Utils::Hash.new("metadata" => WrappingHash.new("coverage" => 100))
+      nested = Hanami::CygUtils::Hash.new("metadata" => WrappingHash.new("coverage" => 100))
       nested.deep_symbolize!
 
-      expect(nested[:metadata]).to be_kind_of Hanami::Utils::Hash
+      expect(nested[:metadata]).to be_kind_of Hanami::CygUtils::Hash
       expect(nested[:metadata][:coverage]).to eq(100)
     end
 
     it "doesn't try to symbolize nested objects", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("foo" => ["bar"])
+      hash = Hanami::CygUtils::Hash.new("foo" => ["bar"])
       hash.deep_symbolize!
 
       expect(hash[:foo]).to eq(["bar"])
@@ -400,7 +400,7 @@ RSpec.describe Hanami::Utils::Hash do
 
   describe "#stringify!" do
     it "covert keys to strings", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new(fub: "baz")
+      hash = Hanami::CygUtils::Hash.new(fub: "baz")
       hash.stringify!
 
       expect(hash[:fub]).to be_nil
@@ -408,39 +408,39 @@ RSpec.describe Hanami::Utils::Hash do
     end
 
     it "stringifies nested hashes", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new(nested: {key: "value"})
+      hash = Hanami::CygUtils::Hash.new(nested: {key: "value"})
       hash.stringify!
 
-      expect(hash["nested"]).to be_kind_of Hanami::Utils::Hash
+      expect(hash["nested"]).to be_kind_of Hanami::CygUtils::Hash
       expect(hash["nested"]["key"]).to eq("value")
     end
 
-    it "stringifies nested Hanami::Utils::Hashes", silence_deprecations: true do
-      nested = Hanami::Utils::Hash.new(key: "value")
-      hash = Hanami::Utils::Hash.new(nested: nested)
+    it "stringifies nested Hanami::CygUtils::Hashes", silence_deprecations: true do
+      nested = Hanami::CygUtils::Hash.new(key: "value")
+      hash = Hanami::CygUtils::Hash.new(nested: nested)
       hash.stringify!
 
-      expect(hash["nested"]).to be_kind_of Hanami::Utils::Hash
+      expect(hash["nested"]).to be_kind_of Hanami::CygUtils::Hash
       expect(hash["nested"]["key"]).to eq("value")
     end
 
     it "stringifies nested object that responds to to_hash", silence_deprecations: true do
-      nested = Hanami::Utils::Hash.new(metadata: WrappingHash.new(coverage: 100))
+      nested = Hanami::CygUtils::Hash.new(metadata: WrappingHash.new(coverage: 100))
       nested.stringify!
 
-      expect(nested["metadata"]).to be_kind_of Hanami::Utils::Hash
+      expect(nested["metadata"]).to be_kind_of Hanami::CygUtils::Hash
       expect(nested["metadata"]["coverage"]).to eq(100)
     end
   end
 
   describe "#deep_dup" do
-    it "returns an instance of Utils::Hash", silence_deprecations: true do
-      duped = Hanami::Utils::Hash.new("foo" => "bar").deep_dup
-      expect(duped).to be_kind_of(Hanami::Utils::Hash)
+    it "returns an instance of CygUtils::Hash", silence_deprecations: true do
+      duped = Hanami::CygUtils::Hash.new("foo" => "bar").deep_dup
+      expect(duped).to be_kind_of(Hanami::CygUtils::Hash)
     end
 
     it "returns a hash with duplicated values", silence_deprecations: true do
-      hash  = Hanami::Utils::Hash.new("foo" => "bar", "baz" => "x")
+      hash  = Hanami::CygUtils::Hash.new("foo" => "bar", "baz" => "x")
       duped = hash.deep_dup
 
       duped["foo"] = nil
@@ -464,7 +464,7 @@ RSpec.describe Hanami::Utils::Hash do
         "rational" => Rational(0.3)
       }
 
-      hash  = Hanami::Utils::Hash.new(original)
+      hash  = Hanami::CygUtils::Hash.new(original)
       duped = hash.deep_dup
 
       expect(duped).to eq(original)
@@ -472,7 +472,7 @@ RSpec.describe Hanami::Utils::Hash do
     end
 
     it "returns a hash with nested duplicated values", silence_deprecations: true do
-      hash  = Hanami::Utils::Hash.new("foo" => {"bar" => "baz"}, "x" => Hanami::Utils::Hash.new("y" => "z"))
+      hash  = Hanami::CygUtils::Hash.new("foo" => {"bar" => "baz"}, "x" => Hanami::CygUtils::Hash.new("y" => "z"))
       duped = hash.deep_dup
 
       duped["foo"]["bar"].reverse!
@@ -483,38 +483,38 @@ RSpec.describe Hanami::Utils::Hash do
     end
 
     it "preserves original class", silence_deprecations: true do
-      duped = Hanami::Utils::Hash.new("foo" => {}, "x" => Hanami::Utils::Hash.new).deep_dup
+      duped = Hanami::CygUtils::Hash.new("foo" => {}, "x" => Hanami::CygUtils::Hash.new).deep_dup
 
       expect(duped["foo"]).to be_kind_of(::Hash)
-      expect(duped["x"]).to be_kind_of(Hanami::Utils::Hash)
+      expect(duped["x"]).to be_kind_of(Hanami::CygUtils::Hash)
     end
   end
 
   describe "hash interface" do
-    it "returns a new Hanami::Utils::Hash for methods which return a ::Hash", silence_deprecations: true do
-      hash   = Hanami::Utils::Hash.new("a" => 1)
+    it "returns a new Hanami::CygUtils::Hash for methods which return a ::Hash", silence_deprecations: true do
+      hash   = Hanami::CygUtils::Hash.new("a" => 1)
       result = hash.clear
 
       expect(hash).to be_empty
-      expect(result).to be_kind_of(Hanami::Utils::Hash)
+      expect(result).to be_kind_of(Hanami::CygUtils::Hash)
     end
 
     it "returns a value that is compliant with ::Hash return value", silence_deprecations: true do
-      hash   = Hanami::Utils::Hash.new("a" => 1)
+      hash   = Hanami::CygUtils::Hash.new("a" => 1)
       result = hash.assoc("a")
 
       expect(result).to eq ["a", 1]
     end
 
     it "responds to whatever ::Hash responds to" do
-      hash = Hanami::Utils::Hash.new("a" => 1)
+      hash = Hanami::CygUtils::Hash.new("a" => 1)
 
       expect(hash).to respond_to :rehash
       expect(hash).not_to respond_to :unknown_method
     end
 
     it "accepts blocks for methods", silence_deprecations: true do
-      hash   = Hanami::Utils::Hash.new("a" => 1)
+      hash   = Hanami::CygUtils::Hash.new("a" => 1)
       result = hash.delete_if { |k, _| k == "a" }
 
       expect(result).to be_empty
@@ -522,7 +522,7 @@ RSpec.describe Hanami::Utils::Hash do
 
     describe "#to_h" do
       it "returns a ::Hash", silence_deprecations: true do
-        actual = Hanami::Utils::Hash.new("a" => 1).to_h
+        actual = Hanami::CygUtils::Hash.new("a" => 1).to_h
         expect(actual).to eq("a" => 1)
       end
 
@@ -536,7 +536,7 @@ RSpec.describe Hanami::Utils::Hash do
           }
         }
 
-        utils_hash = Hanami::Utils::Hash.new(hash)
+        utils_hash = Hanami::CygUtils::Hash.new(hash)
         expect(utils_hash).not_to be_kind_of(::Hash)
 
         actual = utils_hash.to_h
@@ -556,7 +556,7 @@ RSpec.describe Hanami::Utils::Hash do
           }
         }
 
-        utils_hash = Hanami::Utils::Hash.new(hash).deep_symbolize!
+        utils_hash = Hanami::CygUtils::Hash.new(hash).deep_symbolize!
         expect(utils_hash).not_to be_kind_of(::Hash)
 
         actual = utils_hash.to_h
@@ -568,7 +568,7 @@ RSpec.describe Hanami::Utils::Hash do
     end
 
     it "prevents information escape", silence_deprecations: true do
-      actual = Hanami::Utils::Hash.new("a" => 1)
+      actual = Hanami::CygUtils::Hash.new("a" => 1)
       hash   = actual.to_h
       hash["b"] = 2
 
@@ -577,7 +577,7 @@ RSpec.describe Hanami::Utils::Hash do
 
     it "prevents information escape for nested hash"
     # it 'prevents information escape for nested hash' do
-    #   actual  = Hanami::Utils::Hash.new({'a' => {'b' => 2}})
+    #   actual  = Hanami::CygUtils::Hash.new({'a' => {'b' => 2}})
     #   hash    = actual.to_h
     #   subhash = hash['a']
     #   subhash.merge!('c' => 3)
@@ -586,14 +586,14 @@ RSpec.describe Hanami::Utils::Hash do
     # end
 
     it "serializes nested objects that respond to to_hash", silence_deprecations: true do
-      nested = Hanami::Utils::Hash.new(metadata: WrappingHash.new(coverage: 100))
+      nested = Hanami::CygUtils::Hash.new(metadata: WrappingHash.new(coverage: 100))
       expect(nested.to_h).to eq(metadata: {coverage: 100})
     end
   end
 
   describe "#to_hash" do
     it "returns a ::Hash", silence_deprecations: true do
-      actual = Hanami::Utils::Hash.new("a" => 1).to_hash
+      actual = Hanami::CygUtils::Hash.new("a" => 1).to_hash
       expect(actual).to eq("a" => 1)
     end
 
@@ -607,7 +607,7 @@ RSpec.describe Hanami::Utils::Hash do
         }
       }
 
-      utils_hash = Hanami::Utils::Hash.new(hash)
+      utils_hash = Hanami::CygUtils::Hash.new(hash)
       expect(utils_hash).not_to be_kind_of(::Hash)
 
       actual = utils_hash.to_h
@@ -627,7 +627,7 @@ RSpec.describe Hanami::Utils::Hash do
         }
       }
 
-      utils_hash = Hanami::Utils::Hash.new(hash).deep_symbolize!
+      utils_hash = Hanami::CygUtils::Hash.new(hash).deep_symbolize!
       expect(utils_hash).not_to be_kind_of(::Hash)
 
       actual = utils_hash.to_h
@@ -638,7 +638,7 @@ RSpec.describe Hanami::Utils::Hash do
     end
 
     it "prevents information escape", silence_deprecations: true do
-      actual = Hanami::Utils::Hash.new("a" => 1)
+      actual = Hanami::CygUtils::Hash.new("a" => 1)
       hash   = actual.to_hash
       hash["b"] = 2
 
@@ -648,12 +648,12 @@ RSpec.describe Hanami::Utils::Hash do
 
   describe "#to_a" do
     it "returns an ::Array", silence_deprecations: true do
-      actual = Hanami::Utils::Hash.new("a" => 1).to_a
+      actual = Hanami::CygUtils::Hash.new("a" => 1).to_a
       expect(actual).to eq([["a", 1]])
     end
 
     it "prevents information escape", silence_deprecations: true do
-      actual = Hanami::Utils::Hash.new("a" => 1)
+      actual = Hanami::CygUtils::Hash.new("a" => 1)
       array  = actual.to_a
       array.push(["b", 2])
 
@@ -663,54 +663,54 @@ RSpec.describe Hanami::Utils::Hash do
 
   describe "equality" do
     it "has a working equality", silence_deprecations: true do
-      hash  = Hanami::Utils::Hash.new("a" => 1)
-      other = Hanami::Utils::Hash.new("a" => 1)
+      hash  = Hanami::CygUtils::Hash.new("a" => 1)
+      other = Hanami::CygUtils::Hash.new("a" => 1)
 
       expect(hash == other).to be_truthy
     end
 
     it "has a working equality with raw hashes", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("a" => 1)
+      hash = Hanami::CygUtils::Hash.new("a" => 1)
       expect(hash == {"a" => 1}).to be_truthy
     end
   end
 
   describe "case equality" do
     it "has a working case equality", silence_deprecations: true do
-      hash  = Hanami::Utils::Hash.new("a" => 1)
-      other = Hanami::Utils::Hash.new("a" => 1)
+      hash  = Hanami::CygUtils::Hash.new("a" => 1)
+      other = Hanami::CygUtils::Hash.new("a" => 1)
 
       expect(hash === other).to be_truthy # rubocop:disable Style/CaseEquality
     end
 
     it "has a working case equality with raw hashes", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("a" => 1)
+      hash = Hanami::CygUtils::Hash.new("a" => 1)
       expect(hash === {"a" => 1}).to be_truthy # rubocop:disable Style/CaseEquality
     end
   end
 
   describe "value equality" do
     it "has a working value equality", silence_deprecations: true do
-      hash  = Hanami::Utils::Hash.new("a" => 1)
-      other = Hanami::Utils::Hash.new("a" => 1)
+      hash  = Hanami::CygUtils::Hash.new("a" => 1)
+      other = Hanami::CygUtils::Hash.new("a" => 1)
 
       expect(hash).to eql(other)
     end
 
     it "has a working value equality with raw hashes", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("a" => 1)
+      hash = Hanami::CygUtils::Hash.new("a" => 1)
       expect(hash).to eql("a" => 1)
     end
   end
 
   describe "identity equality" do
     it "has a working identity equality" do
-      hash = Hanami::Utils::Hash.new("a" => 1)
+      hash = Hanami::CygUtils::Hash.new("a" => 1)
       expect(hash).to equal(hash)
     end
 
     it "has a working identity equality with raw hashes" do
-      hash = Hanami::Utils::Hash.new("a" => 1)
+      hash = Hanami::CygUtils::Hash.new("a" => 1)
       expect(hash).not_to equal("a" => 1)
     end
   end
@@ -718,7 +718,7 @@ RSpec.describe Hanami::Utils::Hash do
   describe "#hash" do
     it "returns the same hash result of ::Hash", silence_deprecations: true do
       expected = {"l" => 23}.hash
-      actual   = Hanami::Utils::Hash.new("l" => 23).hash
+      actual   = Hanami::CygUtils::Hash.new("l" => 23).hash
 
       expect(actual).to eq expected
     end
@@ -727,7 +727,7 @@ RSpec.describe Hanami::Utils::Hash do
   describe "#inspect", silence_deprecations: true do
     it "returns the same output of ::Hash" do
       expected = {"l" => 23, l: 23}.inspect
-      actual   = Hanami::Utils::Hash.new("l" => 23, l: 23).inspect
+      actual   = Hanami::CygUtils::Hash.new("l" => 23, l: 23).inspect
 
       expect(actual).to eq expected
     end
@@ -736,15 +736,15 @@ RSpec.describe Hanami::Utils::Hash do
   describe "unknown method" do
     it "raises error" do
       begin
-        Hanami::Utils::Hash.new("l" => 23).party!
+        Hanami::CygUtils::Hash.new("l" => 23).party!
       rescue NoMethodError => exception
-        expect(exception.message).to eq %(undefined method `party!' for {\"l\"=>23}:Hanami::Utils::Hash)
+        expect(exception.message).to eq %(undefined method `party!' for {\"l\"=>23}:Hanami::CygUtils::Hash)
       end
     end
 
-    # See: https://github.com/hanami/utils/issues/48
+    # See: https://github.com/hanami/cyg_utils/issues/48
     it "returns the correct object when a NoMethodError is raised", silence_deprecations: true do
-      hash = Hanami::Utils::Hash.new("a" => 1)
+      hash = Hanami::CygUtils::Hash.new("a" => 1)
 
       if RUBY_VERSION >= "2.4"
         exception_message = "undefined method `foo' for 1:Integer"

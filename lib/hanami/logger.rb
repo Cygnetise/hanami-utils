@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "logger"
-require "hanami/utils/string"
-require "hanami/utils/files"
+require "hanami/cyg_utils/string"
+require "hanami/cyg_utils/files"
 
 module Hanami
   # Hanami logger
@@ -283,7 +283,7 @@ module Hanami
     # rubocop:disable Metrics/ParameterLists
     def initialize(application_name = nil, *args, stream: $stdout, level: DEBUG, formatter: nil, filter: [], colorizer: nil, **kwargs) # rubocop:disable Layout/LineLength
       begin
-        Utils::Files.mkdir_p(stream)
+        CygUtils::Files.mkdir_p(stream)
       rescue TypeError
       end
 
@@ -326,7 +326,7 @@ module Hanami
     # @api private
     def _application_name_from_namespace
       class_name = self.class.name
-      namespace  = Utils::String.namespace(class_name)
+      namespace  = CygUtils::String.namespace(class_name)
 
       class_name != namespace and return namespace
     end

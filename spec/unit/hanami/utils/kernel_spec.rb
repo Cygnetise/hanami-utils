@@ -3,9 +3,9 @@
 require "ostruct"
 require "bigdecimal"
 require "securerandom"
-require "hanami/utils/kernel"
+require "hanami/cyg_utils/kernel"
 
-RSpec.describe Hanami::Utils::Kernel do
+RSpec.describe Hanami::CygUtils::Kernel do
   describe ".Array" do
     describe "successful operations" do
       before do
@@ -21,7 +21,7 @@ RSpec.describe Hanami::Utils::Kernel do
           end
         end
 
-        @result = Hanami::Utils::Kernel.Array(input)
+        @result = Hanami::CygUtils::Kernel.Array(input)
       end
 
       after do
@@ -155,7 +155,7 @@ RSpec.describe Hanami::Utils::Kernel do
 
     describe "successful operations" do
       before do
-        @result = Hanami::Utils::Kernel.Set(input)
+        @result = Hanami::CygUtils::Kernel.Set(input)
       end
 
       describe "when nil is given" do
@@ -261,12 +261,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BaseObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Set(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Set(input) }.to raise_error(TypeError)
         end
 
         it "returns informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Set(input)
+            Hanami::CygUtils::Kernel.Set(input)
           rescue StandardError => exception
             expect(exception.message).to match "can't convert into Set"
           end
@@ -312,7 +312,7 @@ RSpec.describe Hanami::Utils::Kernel do
 
     describe "successful operations" do
       before do
-        @result = Hanami::Utils::Kernel.Hash(input)
+        @result = Hanami::CygUtils::Kernel.Hash(input)
       end
 
       describe "when nil is given" do
@@ -369,12 +369,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BaseObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Hash(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Hash(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Hash(input)
+            Hanami::CygUtils::Kernel.Hash(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Hash"
           end
@@ -385,7 +385,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { true }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Hash(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Hash(input) }.to raise_error(TypeError)
         end
       end
 
@@ -393,7 +393,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { false }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Hash(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Hash(input) }.to raise_error(TypeError)
         end
       end
 
@@ -401,7 +401,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { [1] }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Hash(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Hash(input) }.to raise_error(TypeError)
         end
       end
 
@@ -409,7 +409,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { [:a, 1] }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Hash(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Hash(input) }.to raise_error(TypeError)
         end
       end
 
@@ -417,7 +417,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Set.new([1]) }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Hash(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Hash(input) }.to raise_error(TypeError)
         end
       end
 
@@ -425,7 +425,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Set.new([:a, 1]) }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Hash(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Hash(input) }.to raise_error(TypeError)
         end
       end
     end
@@ -440,7 +440,7 @@ RSpec.describe Hanami::Utils::Kernel do
           end
         end
 
-        @result = Hanami::Utils::Kernel.Integer(input)
+        @result = Hanami::CygUtils::Kernel.Integer(input)
       end
 
       after do
@@ -573,7 +573,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { true }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
       end
 
@@ -581,7 +581,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { false }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
       end
 
@@ -589,7 +589,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Date.today }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
       end
 
@@ -597,7 +597,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { DateTime.now }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
       end
 
@@ -605,12 +605,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Integer(input)
+            Hanami::CygUtils::Kernel.Integer(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Integer"
           end
@@ -621,12 +621,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { OpenStruct.new(color: "purple") }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Integer(input)
+            Hanami::CygUtils::Kernel.Integer(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Integer"
           end
@@ -637,7 +637,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BigDecimal("Infinity") }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
       end
 
@@ -645,12 +645,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BigDecimal("NaN") }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Integer(input)
+            Hanami::CygUtils::Kernel.Integer(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Integer"
           end
@@ -661,12 +661,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Complex(2, 3) }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Integer(input)
+            Hanami::CygUtils::Kernel.Integer(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Integer"
           end
@@ -677,12 +677,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Rational(-8)**Rational(1, 3) }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Integer(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Integer(input)
+            Hanami::CygUtils::Kernel.Integer(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Integer"
           end
@@ -693,7 +693,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { "home" }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }
+          expect { Hanami::CygUtils::Kernel.Integer(input) }
             .to raise_error(TypeError, "can't convert #{input.inspect} into Integer")
         end
       end
@@ -702,7 +702,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { "23 street" }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Integer(input) }
+          expect { Hanami::CygUtils::Kernel.Integer(input) }
             .to raise_error(TypeError, "can't convert #{input.inspect} into Integer")
         end
       end
@@ -718,7 +718,7 @@ RSpec.describe Hanami::Utils::Kernel do
           end
         end
 
-        @result = Hanami::Utils::Kernel.BigDecimal(input)
+        @result = Hanami::CygUtils::Kernel.BigDecimal(input)
       end
 
       after do
@@ -869,25 +869,25 @@ RSpec.describe Hanami::Utils::Kernel do
       let(:input) { "23.0 street" }
 
       it "returns an BigDecimal" do
-        expect(Hanami::Utils::Kernel.BigDecimal(input)).to eq BigDecimal(23)
+        expect(Hanami::CygUtils::Kernel.BigDecimal(input)).to eq BigDecimal(23)
       end
     end
 
-    # Bug: https://github.com/hanami/utils/issues/140
+    # Bug: https://github.com/hanami/cyg_utils/issues/140
     describe "when a negative bigdecimal is given" do
       let(:input) { BigDecimal("-12.0001") }
 
       it "returns a BigDecimal" do
-        expect(Hanami::Utils::Kernel.BigDecimal(input)).to eq BigDecimal("-12.0001")
+        expect(Hanami::CygUtils::Kernel.BigDecimal(input)).to eq BigDecimal("-12.0001")
       end
     end
 
-    # Bug: https://github.com/hanami/utils/issues/140
+    # Bug: https://github.com/hanami/cyg_utils/issues/140
     describe "when the big decimal is less than 1 with high precision" do
       let(:input) { BigDecimal("0.0001") }
 
       it "returns a BigDecimal" do
-        expect(Hanami::Utils::Kernel.BigDecimal(input)).to eq BigDecimal("0.0001")
+        expect(Hanami::CygUtils::Kernel.BigDecimal(input)).to eq BigDecimal("0.0001")
       end
     end
 
@@ -896,7 +896,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { nil }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
         end
       end
 
@@ -904,7 +904,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { true }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
         end
       end
 
@@ -912,7 +912,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { false }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
         end
       end
 
@@ -920,7 +920,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Date.today }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
         end
       end
 
@@ -928,7 +928,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { DateTime.now }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
         end
       end
 
@@ -936,7 +936,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Time.now }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
         end
       end
 
@@ -944,12 +944,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.BigDecimal(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.BigDecimal(input)
+            Hanami::CygUtils::Kernel.BigDecimal(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into BigDecimal"
           end
@@ -967,7 +967,7 @@ RSpec.describe Hanami::Utils::Kernel do
           end
         end
 
-        @result = Hanami::Utils::Kernel.Float(input)
+        @result = Hanami::CygUtils::Kernel.Float(input)
       end
 
       after do
@@ -1129,7 +1129,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { true }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Float(input) }.to raise_error(TypeError)
         end
       end
 
@@ -1137,7 +1137,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { false }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Float(input) }.to raise_error(TypeError)
         end
       end
 
@@ -1145,7 +1145,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Date.today }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Float(input) }.to raise_error(TypeError)
         end
       end
 
@@ -1153,7 +1153,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { DateTime.now }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Float(input) }.to raise_error(TypeError)
         end
       end
 
@@ -1161,7 +1161,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { "home" }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }
+          expect { Hanami::CygUtils::Kernel.Float(input) }
             .to raise_error(TypeError, "can't convert #{input.inspect} into Float")
         end
       end
@@ -1170,7 +1170,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { "23.0 street" }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }
+          expect { Hanami::CygUtils::Kernel.Float(input) }
             .to raise_error(TypeError, "can't convert #{input.inspect} into Float")
         end
       end
@@ -1179,12 +1179,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Float(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Float(input)
+            Hanami::CygUtils::Kernel.Float(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Float"
           end
@@ -1195,7 +1195,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { OpenStruct.new(color: "purple") }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Float(input) }.to raise_error(TypeError)
         end
       end
 
@@ -1203,12 +1203,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Complex(2, 3) }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Float(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Float(input)
+            Hanami::CygUtils::Kernel.Float(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Float"
           end
@@ -1219,12 +1219,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Rational(-8)**Rational(1, 3) }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Float(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Float(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Float(input)
+            Hanami::CygUtils::Kernel.Float(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Float"
           end
@@ -1262,7 +1262,7 @@ RSpec.describe Hanami::Utils::Kernel do
 
     describe "successful operations" do
       before do
-        @result = Hanami::Utils::Kernel.String(input)
+        @result = Hanami::CygUtils::Kernel.String(input)
       end
 
       describe "when nil is given" do
@@ -1523,7 +1523,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.String(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.String(input) }.to raise_error(TypeError)
         end
       end
     end
@@ -1551,7 +1551,7 @@ RSpec.describe Hanami::Utils::Kernel do
 
     describe "successful operations" do
       before do
-        @result = Hanami::Utils::Kernel.Boolean(input)
+        @result = Hanami::CygUtils::Kernel.Boolean(input)
       end
 
       describe "when nil is given" do
@@ -1634,24 +1634,24 @@ RSpec.describe Hanami::Utils::Kernel do
         end
       end
 
-      describe 'when "0" is given (Hanami::Utils::String)', silence_deprecations: true do
-        let(:input) { Hanami::Utils::String.new("0") }
+      describe 'when "0" is given (Hanami::CygUtils::String)', silence_deprecations: true do
+        let(:input) { Hanami::CygUtils::String.new("0") }
 
         it "returns false" do
           expect(@result).to eq false
         end
       end
 
-      describe 'when "1" is given (Hanami::Utils::String)', silence_deprecations: true do
-        let(:input) { Hanami::Utils::String.new("1") }
+      describe 'when "1" is given (Hanami::CygUtils::String)', silence_deprecations: true do
+        let(:input) { Hanami::CygUtils::String.new("1") }
 
         it "returns true" do
           expect(@result).to eq true
         end
       end
 
-      describe 'when "foo" is given (Hanami::Utils::String)', silence_deprecations: true do
-        let(:input) { Hanami::Utils::String.new("foo") }
+      describe 'when "foo" is given (Hanami::CygUtils::String)', silence_deprecations: true do
+        let(:input) { Hanami::CygUtils::String.new("foo") }
 
         it "returns false" do
           expect(@result).to eq false
@@ -1680,12 +1680,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Boolean(input) }.to raise_error(TypeError)
+          expect { Hanami::CygUtils::Kernel.Boolean(input) }.to raise_error(TypeError)
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Boolean(input)
+            Hanami::CygUtils::Kernel.Boolean(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Boolean"
           end
@@ -1716,7 +1716,7 @@ RSpec.describe Hanami::Utils::Kernel do
 
     describe "successful operations" do
       before do
-        @result = Hanami::Utils::Kernel.Date(input)
+        @result = Hanami::CygUtils::Kernel.Date(input)
       end
 
       describe "when a date is given" do
@@ -1773,12 +1773,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { nil }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Date(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Date(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Date(input)
+            Hanami::CygUtils::Kernel.Date(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Date"
           end
@@ -1789,12 +1789,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { true }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Date(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Date(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Date(input)
+            Hanami::CygUtils::Kernel.Date(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Date"
           end
@@ -1805,12 +1805,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { false }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Date(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Date(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Date(input)
+            Hanami::CygUtils::Kernel.Date(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Date"
           end
@@ -1821,12 +1821,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { 2 }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Date(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Date(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Date(input)
+            Hanami::CygUtils::Kernel.Date(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Date"
           end
@@ -1837,12 +1837,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { 2332.903007 }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Date(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Date(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Date(input)
+            Hanami::CygUtils::Kernel.Date(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Date"
           end
@@ -1853,12 +1853,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { "lego" }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Date(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Date(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Date(input)
+            Hanami::CygUtils::Kernel.Date(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Date"
           end
@@ -1869,12 +1869,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { "18:55" }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Date(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Date(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Date(input)
+            Hanami::CygUtils::Kernel.Date(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Date"
           end
@@ -1885,12 +1885,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Date(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Date(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Date(input)
+            Hanami::CygUtils::Kernel.Date(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Date"
           end
@@ -1901,12 +1901,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BaseObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Date(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Date(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Date(input)
+            Hanami::CygUtils::Kernel.Date(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Date"
           end
@@ -1937,7 +1937,7 @@ RSpec.describe Hanami::Utils::Kernel do
 
     describe "successful operations" do
       before do
-        @result = Hanami::Utils::Kernel.DateTime(input)
+        @result = Hanami::CygUtils::Kernel.DateTime(input)
       end
 
       describe "when a datetime is given" do
@@ -2018,12 +2018,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { nil }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.DateTime(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.DateTime(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.DateTime(input)
+            Hanami::CygUtils::Kernel.DateTime(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into DateTime"
           end
@@ -2034,12 +2034,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { true }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.DateTime(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.DateTime(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.DateTime(input)
+            Hanami::CygUtils::Kernel.DateTime(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into DateTime"
           end
@@ -2050,12 +2050,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { false }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.DateTime(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.DateTime(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.DateTime(input)
+            Hanami::CygUtils::Kernel.DateTime(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into DateTime"
           end
@@ -2066,12 +2066,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { "crab" }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.DateTime(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.DateTime(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.DateTime(input)
+            Hanami::CygUtils::Kernel.DateTime(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into DateTime"
           end
@@ -2082,12 +2082,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.DateTime(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.DateTime(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.DateTime(input)
+            Hanami::CygUtils::Kernel.DateTime(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into DateTime"
           end
@@ -2098,12 +2098,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BaseObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.DateTime(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.DateTime(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.DateTime(input)
+            Hanami::CygUtils::Kernel.DateTime(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into DateTime"
           end
@@ -2134,7 +2134,7 @@ RSpec.describe Hanami::Utils::Kernel do
 
     describe "successful operations" do
       before do
-        @result = Hanami::Utils::Kernel.Time(input)
+        @result = Hanami::CygUtils::Kernel.Time(input)
       end
 
       describe "when a time is given" do
@@ -2215,12 +2215,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { nil }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Time(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Time(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Time(input)
+            Hanami::CygUtils::Kernel.Time(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Time"
           end
@@ -2231,12 +2231,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { true }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Time(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Time(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Time(input)
+            Hanami::CygUtils::Kernel.Time(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Time"
           end
@@ -2247,12 +2247,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { false }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Time(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Time(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Time(input)
+            Hanami::CygUtils::Kernel.Time(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Time"
           end
@@ -2263,12 +2263,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { "boat" }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Time(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Time(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Time(input)
+            Hanami::CygUtils::Kernel.Time(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert #{input.inspect} into Time"
           end
@@ -2279,12 +2279,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Time(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Time(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Time(input)
+            Hanami::CygUtils::Kernel.Time(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Time"
           end
@@ -2295,12 +2295,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BaseObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Time(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Time(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Time(input)
+            Hanami::CygUtils::Kernel.Time(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Time"
           end
@@ -2324,7 +2324,7 @@ RSpec.describe Hanami::Utils::Kernel do
           end
         end
 
-        @result = Hanami::Utils::Kernel.Pathname(input)
+        @result = Hanami::CygUtils::Kernel.Pathname(input)
       end
 
       after do
@@ -2370,7 +2370,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { nil }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Pathname(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Pathname(input) }.to raise_error TypeError
         end
       end
 
@@ -2378,7 +2378,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { true }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Pathname(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Pathname(input) }.to raise_error TypeError
         end
       end
 
@@ -2386,7 +2386,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { false }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Pathname(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Pathname(input) }.to raise_error TypeError
         end
       end
 
@@ -2394,7 +2394,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { 12 }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Pathname(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Pathname(input) }.to raise_error TypeError
         end
       end
 
@@ -2402,7 +2402,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Date.today }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Pathname(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Pathname(input) }.to raise_error TypeError
         end
       end
 
@@ -2410,7 +2410,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { DateTime.now }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Pathname(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Pathname(input) }.to raise_error TypeError
         end
       end
 
@@ -2418,7 +2418,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Time.now }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Pathname(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Pathname(input) }.to raise_error TypeError
         end
       end
 
@@ -2426,12 +2426,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Pathname(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Pathname(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Pathname(input)
+            Hanami::CygUtils::Kernel.Pathname(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Pathname"
           end
@@ -2449,7 +2449,7 @@ RSpec.describe Hanami::Utils::Kernel do
           end
         end
 
-        @result = Hanami::Utils::Kernel.Symbol(input)
+        @result = Hanami::CygUtils::Kernel.Symbol(input)
       end
 
       after do
@@ -2486,7 +2486,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { nil }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Symbol(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Symbol(input) }.to raise_error TypeError
         end
       end
 
@@ -2494,7 +2494,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { "" }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Symbol(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Symbol(input) }.to raise_error TypeError
         end
       end
 
@@ -2502,7 +2502,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { true }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Symbol(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Symbol(input) }.to raise_error TypeError
         end
       end
 
@@ -2510,7 +2510,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { false }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Symbol(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Symbol(input) }.to raise_error TypeError
         end
       end
 
@@ -2518,7 +2518,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { 12 }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Symbol(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Symbol(input) }.to raise_error TypeError
         end
       end
 
@@ -2526,7 +2526,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Date.today }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Symbol(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Symbol(input) }.to raise_error TypeError
         end
       end
 
@@ -2534,7 +2534,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { DateTime.now }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Symbol(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Symbol(input) }.to raise_error TypeError
         end
       end
 
@@ -2542,7 +2542,7 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { Time.now }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Symbol(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Symbol(input) }.to raise_error TypeError
         end
       end
 
@@ -2550,12 +2550,12 @@ RSpec.describe Hanami::Utils::Kernel do
         let(:input) { BasicObject.new }
 
         it "raises error" do
-          expect { Hanami::Utils::Kernel.Symbol(input) }.to raise_error TypeError
+          expect { Hanami::CygUtils::Kernel.Symbol(input) }.to raise_error TypeError
         end
 
         it "returns useful informations about the failure" do
           begin
-            Hanami::Utils::Kernel.Symbol(input)
+            Hanami::CygUtils::Kernel.Symbol(input)
           rescue StandardError => exception
             expect(exception.message).to eq "can't convert into Symbol"
           end
@@ -2567,7 +2567,7 @@ RSpec.describe Hanami::Utils::Kernel do
   describe ".numeric?" do
     describe "successful operations" do
       before do
-        @result = Hanami::Utils::Kernel.numeric?(input)
+        @result = Hanami::CygUtils::Kernel.numeric?(input)
       end
 
       describe "when a numeric in symbol is given" do

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "hanami/utils/kernel"
+require "hanami/cyg_utils/kernel"
 
 module Hanami
-  module Utils
+  module CygUtils
     # A collection of loading paths.
     #
     # @since 0.2.0
@@ -13,14 +13,14 @@ module Hanami
       # @param paths [String, Pathname, Array<String>, Array<Pathname>] A single
       #   or a collection of objects that can be converted into a Pathname
       #
-      # @return [Hanami::Utils::LoadPaths] self
+      # @return [Hanami::CygUtils::LoadPaths] self
       #
       # @since 0.2.0
       #
       # @see http://ruby-doc.org/stdlib/libdoc/pathname/rdoc/Pathname.html
-      # @see Hanami::Utils::Kernel.Pathname
+      # @see Hanami::CygUtils::Kernel.Pathname
       def initialize(*paths)
-        @paths = Utils::Kernel.Array(paths)
+        @paths = CygUtils::Kernel.Array(paths)
       end
 
       # It specifies the policy for initialize copies of the object, when #clone
@@ -33,19 +33,19 @@ module Hanami
       # @see http://ruby-doc.org/core/Object.html#method-i-dup
       #
       # @example
-      #   require 'hanami/utils/load_paths'
+      #   require 'hanami/cyg_utils/load_paths'
       #
-      #   paths  = Hanami::Utils::LoadPaths.new '.'
+      #   paths  = Hanami::CygUtils::LoadPaths.new '.'
       #   paths2 = paths.dup
       #
       #   paths  << '..'
       #   paths2 << '../..'
       #
       #   paths
-      #     # => #<Hanami::Utils::LoadPaths:0x007f84e0cad430 @paths=[".", ".."]>
+      #     # => #<Hanami::CygUtils::LoadPaths:0x007f84e0cad430 @paths=[".", ".."]>
       #
       #   paths2
-      #     # => #<Hanami::Utils::LoadPaths:0x007faedc4ad3e0 @paths=[".", "../.."]>
+      #     # => #<Hanami::CygUtils::LoadPaths:0x007faedc4ad3e0 @paths=[".", "../.."]>
       def initialize_copy(original)
         @paths = original.instance_variable_get(:@paths).dup
       end
@@ -75,41 +75,41 @@ module Hanami
       # @param paths [String, Pathname, Array<String>, Array<Pathname>] A single
       #   or a collection of objects that can be converted into a Pathname
       #
-      # @return [Hanami::Utils::LoadPaths] self
+      # @return [Hanami::CygUtils::LoadPaths] self
       #
       # @raise [RuntimeError] if the object was previously frozen
       #
       # @since 0.2.0
       #
       # @see http://ruby-doc.org/stdlib/libdoc/pathname/rdoc/Pathname.html
-      # @see Hanami::Utils::Kernel.Pathname
-      # @see Hanami::Utils::LoadPaths#freeze
+      # @see Hanami::CygUtils::Kernel.Pathname
+      # @see Hanami::CygUtils::LoadPaths#freeze
       #
       # @example Basic usage
-      #   require 'hanami/utils/load_paths'
+      #   require 'hanami/cyg_utils/load_paths'
       #
-      #   paths = Hanami::Utils::LoadPaths.new
+      #   paths = Hanami::CygUtils::LoadPaths.new
       #   paths.push '.'
       #   paths.push '..', '../..'
       #
       # @example Chainable calls
-      #   require 'hanami/utils/load_paths'
+      #   require 'hanami/cyg_utils/load_paths'
       #
-      #   paths = Hanami::Utils::LoadPaths.new
+      #   paths = Hanami::CygUtils::LoadPaths.new
       #   paths.push('.')
       #        .push('..', '../..')
       #
       # @example Shovel alias (#<<)
-      #   require 'hanami/utils/load_paths'
+      #   require 'hanami/cyg_utils/load_paths'
       #
-      #   paths = Hanami::Utils::LoadPaths.new
+      #   paths = Hanami::CygUtils::LoadPaths.new
       #   paths << '.'
       #   paths << ['..', '../..']
       #
       # @example Chainable calls with shovel alias (#<<)
-      #   require 'hanami/utils/load_paths'
+      #   require 'hanami/cyg_utils/load_paths'
       #
-      #   paths = Hanami::Utils::LoadPaths.new
+      #   paths = Hanami::CygUtils::LoadPaths.new
       #   paths << '.' << '../..'
       def push(*paths)
         @paths.push(*paths)
@@ -126,9 +126,9 @@ module Hanami
       # @see http://ruby-doc.org/core/Object.html#method-i-freeze
       #
       # @example
-      #   require 'hanami/utils/load_paths'
+      #   require 'hanami/cyg_utils/load_paths'
       #
-      #   paths = Hanami::Utils::LoadPaths.new
+      #   paths = Hanami::CygUtils::LoadPaths.new
       #   paths.freeze
       #
       #   paths.frozen?  # => true
@@ -164,7 +164,7 @@ module Hanami
       # @since 0.2.0
       # @api private
       def realpath(path)
-        Utils::Kernel.Pathname(path).realpath
+        CygUtils::Kernel.Pathname(path).realpath
       end
     end
   end

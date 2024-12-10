@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hanami
-  module Utils
+  module CygUtils
     # Checks for blank
     #
     # @since 0.8.0
@@ -16,14 +16,14 @@ module Hanami
       # Checks if object is blank
       #
       # @example Basic Usage
-      #   require 'hanami/utils/blank'
+      #   require 'hanami/cyg_utils/blank'
       #
-      #   Hanami::Utils::Blank.blank?(Hanami::Utils::String.new('')) # => true
-      #   Hanami::Utils::Blank.blank?('  ')                          # => true
-      #   Hanami::Utils::Blank.blank?(nil)                           # => true
-      #   Hanami::Utils::Blank.blank?(Hanami::Utils::Hash.new({}))   # => true
-      #   Hanami::Utils::Blank.blank?(true)                          # => false
-      #   Hanami::Utils::Blank.blank?(1)                             # => false
+      #   Hanami::CygUtils::Blank.blank?(Hanami::CygUtils::String.new('')) # => true
+      #   Hanami::CygUtils::Blank.blank?('  ')                          # => true
+      #   Hanami::CygUtils::Blank.blank?(nil)                           # => true
+      #   Hanami::CygUtils::Blank.blank?(Hanami::CygUtils::Hash.new({}))   # => true
+      #   Hanami::CygUtils::Blank.blank?(true)                          # => false
+      #   Hanami::CygUtils::Blank.blank?(1)                             # => false
       #
       # @param object the argument
       #
@@ -49,14 +49,14 @@ module Hanami
       # Checks if object is filled
       #
       # @example Basic Usage
-      #   require 'hanami/utils/blank'
+      #   require 'hanami/cyg_utils/blank'
       #
-      #   Hanami::Utils::Blank.filled?(true)                          # => true
-      #   Hanami::Utils::Blank.filled?(1)                             # => true
-      #   Hanami::Utils::Blank.filled?(Hanami::Utils::String.new('')) # => false
-      #   Hanami::Utils::Blank.filled?('  ')                          # => false
-      #   Hanami::Utils::Blank.filled?(nil)                           # => false
-      #   Hanami::Utils::Blank.filled?(Hanami::Utils::Hash.new({}))   # => false
+      #   Hanami::CygUtils::Blank.filled?(true)                          # => true
+      #   Hanami::CygUtils::Blank.filled?(1)                             # => true
+      #   Hanami::CygUtils::Blank.filled?(Hanami::CygUtils::String.new('')) # => false
+      #   Hanami::CygUtils::Blank.filled?('  ')                          # => false
+      #   Hanami::CygUtils::Blank.filled?(nil)                           # => false
+      #   Hanami::CygUtils::Blank.filled?(Hanami::CygUtils::Hash.new({}))   # => false
       #
       # @param object the argument
       #

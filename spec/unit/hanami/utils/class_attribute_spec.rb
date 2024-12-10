@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "hanami/utils/class_attribute"
+require "hanami/cyg_utils/class_attribute"
 
-RSpec.describe Hanami::Utils::ClassAttribute do
+RSpec.describe Hanami::CygUtils::ClassAttribute do
   before do
     class ClassAttributeTest
-      include Hanami::Utils::ClassAttribute
+      include Hanami::CygUtils::ClassAttribute
       class_attribute :callbacks, :functions, :values
       self.callbacks = [:a]
       self.values    = [1]
@@ -21,7 +21,7 @@ RSpec.describe Hanami::Utils::ClassAttribute do
     end
 
     class Vehicle
-      include Hanami::Utils::ClassAttribute
+      include Hanami::CygUtils::ClassAttribute
       class_attribute :engines, :wheels
 
       self.engines = 0
@@ -90,7 +90,7 @@ RSpec.describe Hanami::Utils::ClassAttribute do
           module Routing
             class Resource
               class Action
-                include Hanami::Utils::ClassAttribute
+                include Hanami::CygUtils::ClassAttribute
                 class_attribute :verb
               end
 

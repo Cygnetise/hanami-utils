@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require "hanami/utils/string"
-require "hanami/utils/kernel"
+require "hanami/cyg_utils/string"
+require "hanami/cyg_utils/kernel"
 
 module Hanami
-  module Utils
+  module CygUtils
     # Prefixed string
     #
     # @since 0.1.0
-    class PathPrefix < Hanami::Utils::String
+    class PathPrefix < Hanami::CygUtils::String
       # Path separator
       #
       # @since 0.3.1
@@ -24,7 +24,7 @@ module Hanami
       #
       # @since 0.1.0
       #
-      # @see Hanami::Utils::PathPrefix::DEFAULT_SEPARATOR
+      # @see Hanami::CygUtils::PathPrefix::DEFAULT_SEPARATOR
       def initialize(string = nil, separator = DEFAULT_SEPARATOR)
         super(string)
         @separator = separator
@@ -35,25 +35,25 @@ module Hanami
       #
       # @param strings [::String] the token(s) we want to join
       #
-      # @return [Hanami::Utils::PathPrefix] the joined string
+      # @return [Hanami::CygUtils::PathPrefix] the joined string
       #
       # @since 0.1.0
       #
       # @example Single string
-      #   require 'hanami/utils/path_prefix'
+      #   require 'hanami/cyg_utils/path_prefix'
       #
-      #   path_prefix = Hanami::Utils::PathPrefix.new('/posts')
+      #   path_prefix = Hanami::CygUtils::PathPrefix.new('/posts')
       #   path_prefix.join('new').to_s  # => "/posts/new"
       #   path_prefix.join('/new').to_s # => "/posts/new"
       #
-      #   path_prefix = Hanami::Utils::PathPrefix.new('posts')
+      #   path_prefix = Hanami::CygUtils::PathPrefix.new('posts')
       #   path_prefix.join('new').to_s  # => "/posts/new"
       #   path_prefix.join('/new').to_s # => "/posts/new"
       #
       # @example Multiple strings
-      #   require 'hanami/utils/path_prefix'
+      #   require 'hanami/cyg_utils/path_prefix'
       #
-      #   path_prefix = Hanami::Utils::PathPrefix.new('myapp')
+      #   path_prefix = Hanami::CygUtils::PathPrefix.new('myapp')
       #   path_prefix.join('/assets', 'application.js').to_s
       #     # => "/myapp/assets/application.js"
       def join(*strings)
@@ -66,7 +66,7 @@ module Hanami
       # @param strings [::String] the tokens we want to join
       # @param separator [::String] the separator used between tokens
       #
-      # @return [Hanami::Utils::PathPrefix] the joined string
+      # @return [Hanami::CygUtils::PathPrefix] the joined string
       #
       # @raise [TypeError] if one of the argument can't be treated as a
       #   string
@@ -74,9 +74,9 @@ module Hanami
       # @since 0.1.0
       #
       # @example
-      #   require 'hanami/utils/path_prefix'
+      #   require 'hanami/cyg_utils/path_prefix'
       #
-      #   path_prefix = Hanami::Utils::PathPrefix.new 'posts'
+      #   path_prefix = Hanami::CygUtils::PathPrefix.new 'posts'
       #   path_prefix.relative_join('new').to_s      # => 'posts/new'
       #   path_prefix.relative_join('new', '_').to_s # => 'posts_new'
       def relative_join(strings, separator = @separator)
@@ -117,10 +117,10 @@ module Hanami
       # @api private
       #
       # @example
-      #   require 'hanami/utils/path_prefix'
+      #   require 'hanami/cyg_utils/path_prefix'
       #
-      #   Hanami::Utils::PathPrefix.new('/posts').absolute? #=> true
-      #   Hanami::Utils::PathPrefix.new('posts').absolute?  #=> false
+      #   Hanami::CygUtils::PathPrefix.new('/posts').absolute? #=> true
+      #   Hanami::CygUtils::PathPrefix.new('posts').absolute?  #=> false
       def absolute?
         @string.start_with?(separator)
       end

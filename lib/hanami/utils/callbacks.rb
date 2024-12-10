@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hanami
-  module Utils
+  module CygUtils
     # Before and After callbacks
     #
     # @since 0.1.0
@@ -14,7 +14,7 @@ module Hanami
       class Chain
         # Returns a new chain
         #
-        # @return [Hanami::Utils::Callbacks::Chain]
+        # @return [Hanami::CygUtils::Callbacks::Chain]
         #
         # @since 0.2.0
         def initialize
@@ -32,16 +32,16 @@ module Hanami
         #
         # @see #prepend
         # @see #run
-        # @see Hanami::Utils::Callbacks::Callback
-        # @see Hanami::Utils::Callbacks::MethodCallback
-        # @see Hanami::Utils::Callbacks::Chain#freeze
+        # @see Hanami::CygUtils::Callbacks::Callback
+        # @see Hanami::CygUtils::Callbacks::MethodCallback
+        # @see Hanami::CygUtils::Callbacks::Chain#freeze
         #
         # @since 0.3.4
         #
         # @example
-        #   require 'hanami/utils/callbacks'
+        #   require 'hanami/cyg_utils/callbacks'
         #
-        #   chain = Hanami::Utils::Callbacks::Chain.new
+        #   chain = Hanami::CygUtils::Callbacks::Chain.new
         #
         #   # Append a Proc to be used as a callback, it will be wrapped by `Callback`
         #   # The optional argument(s) correspond to the one passed when invoked the chain with `run`.
@@ -71,16 +71,16 @@ module Hanami
         #
         # @see #append
         # @see #run
-        # @see Hanami::Utils::Callbacks::Callback
-        # @see Hanami::Utils::Callbacks::MethodCallback
-        # @see Hanami::Utils::Callbacks::Chain#freeze
+        # @see Hanami::CygUtils::Callbacks::Callback
+        # @see Hanami::CygUtils::Callbacks::MethodCallback
+        # @see Hanami::CygUtils::Callbacks::Chain#freeze
         #
         # @since 0.3.4
         #
         # @example
-        #   require 'hanami/utils/callbacks'
+        #   require 'hanami/cyg_utils/callbacks'
         #
-        #   chain = Hanami::Utils::Callbacks::Chain.new
+        #   chain = Hanami::CygUtils::Callbacks::Chain.new
         #
         #   # Add a Proc to be used as a callback, it will be wrapped by `Callback`
         #   # The optional argument(s) correspond to the one passed when invoked the chain with `run`.
@@ -108,7 +108,7 @@ module Hanami
         # @since 0.1.0
         #
         # @example
-        #   require 'hanami/utils/callbacks'
+        #   require 'hanami/cyg_utils/callbacks'
         #
         #   class Action
         #     private
@@ -122,7 +122,7 @@ module Hanami
         #   action = Action.new
         #   params = Hash[id: 23]
         #
-        #   chain = Hanami::Utils::Callbacks::Chain.new
+        #   chain = Hanami::CygUtils::Callbacks::Chain.new
         #   chain.append :authenticate!, :set_article
         #
         #   chain.run(action, params)
@@ -131,7 +131,7 @@ module Hanami
         #
         #
         #
-        #   chain = Hanami::Utils::Callbacks::Chain.new
+        #   chain = Hanami::CygUtils::Callbacks::Chain.new
         #
         #   chain.append do
         #     # some authentication logic
@@ -157,9 +157,9 @@ module Hanami
         # @see http://ruby-doc.org/core/Object.html#method-i-freeze
         #
         # @example
-        #   require 'hanami/utils/callbacks'
+        #   require 'hanami/cyg_utils/callbacks'
         #
-        #   chain = Hanami::Utils::Callbacks::Chain.new
+        #   chain = Hanami::CygUtils::Callbacks::Chain.new
         #   chain.freeze
         #
         #   chain.frozen?  # => true
@@ -193,16 +193,16 @@ module Hanami
         # @since 0.1.0
         #
         # @example
-        #   require 'hanami/utils/callbacks'
+        #   require 'hanami/cyg_utils/callbacks'
         #
         #   callable = Proc.new{} # it responds to #call
         #   method   = :upcase    # it doesn't responds to #call
         #
-        #   Hanami::Utils::Callbacks::Factory.fabricate(callable).class
-        #     # => Hanami::Utils::Callbacks::Callback
+        #   Hanami::CygUtils::Callbacks::Factory.fabricate(callable).class
+        #     # => Hanami::CygUtils::Callbacks::Callback
         #
-        #   Hanami::Utils::Callbacks::Factory.fabricate(method).class
-        #     # => Hanami::Utils::Callbacks::MethodCallback
+        #   Hanami::CygUtils::Callbacks::Factory.fabricate(method).class
+        #     # => Hanami::CygUtils::Callbacks::MethodCallback
         def self.fabricate(callback)
           if callback.respond_to?(:call)
             Callback.new(callback)
@@ -243,7 +243,7 @@ module Hanami
         # @since 0.1.0
         # @api private
         #
-        # @see Hanami::Utils::Callbacks::Chain#run
+        # @see Hanami::CygUtils::Callbacks::Chain#run
         def call(context, *args)
           context.instance_exec(*args, &callback)
         end
@@ -268,7 +268,7 @@ module Hanami
         # @since 0.1.0
         # @api private
         #
-        # @see Hanami::Utils::Callbacks::Chain#run
+        # @see Hanami::CygUtils::Callbacks::Chain#run
         def call(context, *args)
           method = context.method(callback)
 

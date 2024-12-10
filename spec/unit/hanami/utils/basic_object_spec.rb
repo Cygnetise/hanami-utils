@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "hanami/utils/basic_object"
+require "hanami/cyg_utils/basic_object"
 require "pp"
 
 class ExternalTestClass
 end
 
-class TestClass < Hanami::Utils::BasicObject
+class TestClass < Hanami::CygUtils::BasicObject
   class InternalTestClass
   end
 
@@ -19,7 +19,7 @@ class TestClass < Hanami::Utils::BasicObject
   end
 end
 
-RSpec.describe Hanami::Utils::BasicObject do
+RSpec.describe Hanami::CygUtils::BasicObject do
   describe ".const_missing" do
     subject { TestClass.new }
 
@@ -65,7 +65,7 @@ RSpec.describe Hanami::Utils::BasicObject do
       expect { pp TestClass.new }.to output(/TestClass/).to_stdout
     end
 
-    # See https://github.com/hanami/utils/issues/234
+    # See https://github.com/hanami/cyg_utils/issues/234
     it "outputs the inspection to the given printer" do
       printer = PP.new
       subject = TestClass.new

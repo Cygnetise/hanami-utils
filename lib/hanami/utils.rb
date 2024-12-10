@@ -6,13 +6,13 @@ require "pathname"
 #
 # @since 0.1.0
 module Hanami
-  require "hanami/utils/version"
-  require "hanami/utils/file_list"
+  require "hanami/cyg_utils/version"
+  require "hanami/cyg_utils/file_list"
 
   # Ruby core extentions and Hanami utilities
   #
   # @since 0.1.0
-  module Utils
+  module CygUtils
     # @since 0.3.1
     # @api private
     HANAMI_JRUBY = "java"

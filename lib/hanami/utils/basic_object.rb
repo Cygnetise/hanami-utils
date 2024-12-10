@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hanami
-  module Utils
+  module CygUtils
     # BasicObject
     #
     # @since 0.3.5

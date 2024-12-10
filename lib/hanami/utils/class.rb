@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "hanami/utils/deprecation"
+require "hanami/cyg_utils/deprecation"
 
 module Hanami
-  module Utils
+  module CygUtils
     # Class utilities
     # @since 0.1.0
     class Class
@@ -18,7 +18,7 @@ module Hanami
       # @since 0.1.0
       #
       # @example
-      #   require 'hanami/utils/class'
+      #   require 'hanami/cyg_utils/class'
       #
       #   module App
       #     module Service
@@ -31,14 +31,14 @@ module Hanami
       #   end
       #
       #   # basic usage
-      #   Hanami::Utils::Class.load!('App::Service') # => App::Service
-      #   Hanami::Utils::Class.load!(App::Service)   # => App::Service
+      #   Hanami::CygUtils::Class.load!('App::Service') # => App::Service
+      #   Hanami::CygUtils::Class.load!(App::Service)   # => App::Service
       #
       #   # with explicit namespace
-      #   Hanami::Utils::Class.load!('Service', App) # => App::Service
+      #   Hanami::CygUtils::Class.load!('Service', App) # => App::Service
       #
       #   # with missing constant
-      #   Hanami::Utils::Class.load!('Unknown') # => raises NameError
+      #   Hanami::CygUtils::Class.load!('Unknown') # => raises NameError
       def self.load!(name, namespace = Object)
         namespace.const_get(name.to_s, false)
       end
@@ -52,7 +52,7 @@ module Hanami
       # @since 0.8.0
       #
       # @example
-      #   require 'hanami/utils/class'
+      #   require 'hanami/cyg_utils/class'
       #
       #   module App
       #     module Service
@@ -65,11 +65,11 @@ module Hanami
       #   end
       #
       #   # basic usage
-      #   Hanami::Utils::Class.load('App::Service') # => App::Service
-      #   Hanami::Utils::Class.load(App::Service)   # => App::Service
+      #   Hanami::CygUtils::Class.load('App::Service') # => App::Service
+      #   Hanami::CygUtils::Class.load(App::Service)   # => App::Service
       #
       #   # with explicit namespace
-      #   Hanami::Utils::Class.load('Service', App) # => App::Service
+      #   Hanami::CygUtils::Class.load('Service', App) # => App::Service
       def self.load(name, namespace = Object)
         load!(name, namespace) if namespace.const_defined?(name.to_s, false)
       end
@@ -84,10 +84,10 @@ module Hanami
       #
       # @since 0.3.1
       #
-      # @see Hanami::Utils::String#tokenize
+      # @see Hanami::CygUtils::String#tokenize
       #
       # @example
-      #   require 'hanami/utils/class'
+      #   require 'hanami/cyg_utils/class'
       #
       #   module App
       #     module Service
@@ -100,19 +100,19 @@ module Hanami
       #   end
       #
       #   # basic usage
-      #   Hanami::Utils::Class.load_from_pattern!('App::Service') # => App::Service
+      #   Hanami::CygUtils::Class.load_from_pattern!('App::Service') # => App::Service
       #
       #   # with explicit namespace
-      #   Hanami::Utils::Class.load_from_pattern!('Service', App) # => App::Service
+      #   Hanami::CygUtils::Class.load_from_pattern!('Service', App) # => App::Service
       #
       #   # with pattern
-      #   Hanami::Utils::Class.load_from_pattern!('App::Service(::Endpoint|Endpoint)') # => App::Service::Endpoint
-      #   Hanami::Utils::Class.load_from_pattern!('App::Service(Endpoint|::Endpoint)') # => App::ServiceEndpoint
+      #   Hanami::CygUtils::Class.load_from_pattern!('App::Service(::Endpoint|Endpoint)') # => App::Service::Endpoint
+      #   Hanami::CygUtils::Class.load_from_pattern!('App::Service(Endpoint|::Endpoint)') # => App::ServiceEndpoint
       #
       #   # with missing constant
-      #   Hanami::Utils::Class.load_from_pattern!('Unknown') # => raises NameError
+      #   Hanami::CygUtils::Class.load_from_pattern!('Unknown') # => raises NameError
       def self.load_from_pattern!(pattern, namespace = Object)
-        Deprecation.new("Hanami::Utils::Class.load_from_pattern! is deprecated, please use Hanami::Utils::Class.load! instead") # rubocop:disable Layout/LineLength
+        Deprecation.new("Hanami::CygUtils::Class.load_from_pattern! is deprecated, please use Hanami::CygUtils::Class.load! instead") # rubocop:disable Layout/LineLength
 
         tokenize(pattern) do |token|
           begin

@@ -7,7 +7,7 @@ rescue LoadError
 end
 
 module Hanami
-  module Utils
+  module CygUtils
     # JSON wrapper
     #
     # If you use MultiJson gem this wrapper will use it.
@@ -49,7 +49,7 @@ module Hanami
       #
       # @return [Object] the result of the loading process
       #
-      # @raise [Hanami::Utils::Json::ParserError] if the paylod is invalid
+      # @raise [Hanami::CygUtils::Json::ParserError] if the paylod is invalid
       #
       # @since 0.9.1
       def self.parse(payload)

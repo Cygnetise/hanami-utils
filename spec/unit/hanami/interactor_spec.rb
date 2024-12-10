@@ -433,7 +433,7 @@ RSpec.describe Hanami::Interactor do
         expect(result.operations).to eq %i[prepare! persist! log!]
       end
 
-      # See https://github.com/hanami/utils/issues/69
+      # See https://github.com/hanami/cyg_utils/issues/69
       it "returns false as control flow for caller" do
         interactor = LegacyPublishVideo.new
         expect(interactor).not_to be_valid
@@ -569,7 +569,7 @@ RSpec.describe Hanami::Interactor do
         expect(result.operations).to eq %i[prepare! persist! log!]
       end
 
-      # See https://github.com/hanami/utils/issues/69
+      # See https://github.com/hanami/cyg_utils/issues/69
       it "returns false as control flow for caller" do
         result = PublishVideo.new.call
         expect(result).not_to be_successful

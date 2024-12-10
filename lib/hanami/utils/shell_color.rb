@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hanami
-  module Utils
+  module CygUtils
     # Shell helper for colorizing STDOUT
     #
     # It doesn't check if you're writing to a file or anything, so you have to
@@ -39,7 +39,7 @@ module Hanami
       # @param input [#to_s] the string to colorize
       # @param color [Symbol] the color
       #
-      # @raise [Hanami::Utils::ShellColor::UnknownColorError] if the color code is
+      # @raise [Hanami::CygUtils::ShellColor::UnknownColorError] if the color code is
       #   unknown
       #
       # @return [String] the colorized string
@@ -54,7 +54,7 @@ module Hanami
       # @api private
       # @since 1.2.0
       #
-      # @raise [Hanami::Utils::ShellColor::UnknownColorError] if the color code is
+      # @raise [Hanami::CygUtils::ShellColor::UnknownColorError] if the color code is
       #   unknown
       def self.color_code(code)
         COLORS.fetch(code) { raise UnknownColorCodeError.new(code) }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hanami
-  module Utils
+  module CygUtils
     # IO utils
     #
     # @since 0.1.0
@@ -18,13 +18,13 @@ module Hanami
       # @since 0.1.0
       #
       # @example
-      #   require 'hanami/utils/io'
+      #   require 'hanami/cyg_utils/io'
       #
       #   class Test
       #     TEST_VALUE = 'initial'
       #   end
       #
-      #   Hanami::Utils::IO.silence_warnings do
+      #   Hanami::CygUtils::IO.silence_warnings do
       #     Test::TEST_VALUE = 'redefined'
       #   end
       def self.silence_warnings

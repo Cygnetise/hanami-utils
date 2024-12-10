@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hanami
-  module Utils
+  module CygUtils
     # HTML escape utilities
     #
     # Based on OWASP research and OWASP ESAPI code
@@ -74,7 +74,7 @@ module Hanami
       # @since 0.4.0
       # @api private
       #
-      # @see Hanami::Utils::Escape.html
+      # @see Hanami::CygUtils::Escape.html
       HTML_CHARS = {
         "&" => "&amp;",
         "<" => "&lt;",
@@ -91,7 +91,7 @@ module Hanami
       # @since 0.4.0
       # @api private
       #
-      # @see Lookup::Utils::Escape.html_attribute
+      # @see Lookup::CygUtils::Escape.html_attribute
       # @see https://gist.github.com/jodosha/ac5dd54416de744b9600
       HTML_ATTRIBUTE_SAFE_CHARS = {
         "," => true, "." => true, "-" => true, "_" => true
@@ -102,7 +102,7 @@ module Hanami
       # @since 0.4.0
       # @api private
       #
-      # @see Hanami::Utils::Escape.html_attribute
+      # @see Hanami::CygUtils::Escape.html_attribute
       HTML_ENTITIES = {
         34 => "quot",     # quotation mark
         38 => "amp",      # ampersand
@@ -363,7 +363,7 @@ module Hanami
       # @since 0.4.0
       # @api private
       #
-      # @see Hanami::Utils::Escape.url
+      # @see Hanami::CygUtils::Escape.url
       DEFAULT_URL_SCHEMES = %w[http https mailto].freeze
 
       # The output of an escape.
@@ -415,12 +415,12 @@ module Hanami
       # @see https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet OWASP XSS Cheat Sheet Rule #1
       #
       # @example Good practice
-      #   <div><%= Hanami::Utils::Escape.html('<script>alert(1);</script>') %></div>
+      #   <div><%= Hanami::CygUtils::Escape.html('<script>alert(1);</script>') %></div>
       #   <div>&lt;script&gt;alert(1);&lt;&#x2F;script&gt;</div>
       #
       # @example Bad practice
       #   # WRONG Use Escape.html_attribute instead
-      #   <a title="<%= Hanami::Utils::Escape.html('...') %>">link</a>
+      #   <a title="<%= Hanami::CygUtils::Escape.html('...') %>">link</a>
       def self.html(input)
         input = encode(input)
         return input if input.is_a?(SafeString)
@@ -449,11 +449,11 @@ module Hanami
       # @see https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet OWASP XSS Cheat Sheet Rule #2
       #
       # @example Good practice
-      #   <a title="<%= Hanami::Utils::Escape.html_attribute('...') %>">link</a>
+      #   <a title="<%= Hanami::CygUtils::Escape.html_attribute('...') %>">link</a>
       #
       # @example Good but expensive practice
       #   # Alternatively you can use Escape.html
-      #   <p><%= Hanami::Utils::Escape.html_attribute('...') %></p>
+      #   <p><%= Hanami::CygUtils::Escape.html_attribute('...') %></p>
       def self.html_attribute(input)
         input = encode(input)
         return input if input.is_a?(SafeString)
@@ -482,7 +482,7 @@ module Hanami
       #
       # @since 0.4.0
       #
-      # @see Hanami::Utils::Escape::DEFAULT_URL_SCHEMES
+      # @see Hanami::CygUtils::Escape::DEFAULT_URL_SCHEMES
       # @see http://www.ruby-doc.org/stdlib/libdoc/uri/rdoc/URI.html#method-c-extract
       #
       # @example Basic usage
@@ -490,8 +490,8 @@ module Hanami
       #     good_input = "http://hanamirb.org"
       #     evil_input = "javascript:alert('xss')"
       #
-      #     escaped_good_input = Hanami::Utils::Escape.url(good_input) # => "http://hanamirb.org"
-      #     escaped_evil_input = Hanami::Utils::Escape.url(evil_input) # => ""
+      #     escaped_good_input = Hanami::CygUtils::Escape.url(good_input) # => "http://hanamirb.org"
+      #     escaped_evil_input = Hanami::CygUtils::Escape.url(evil_input) # => ""
       #   %>
       #
       #   <a href="<%= escaped_good_input %>">personal website</a>
@@ -504,8 +504,8 @@ module Hanami
       #     accepted = "ftps://ftp.example.org"
       #     rejected = "http://www.example.org"
       #
-      #     escaped_accepted = Hanami::Utils::Escape.url(accepted) # => "ftps://ftp.example.org"
-      #     escaped_rejected = Hanami::Utils::Escape.url(rejected) # => ""
+      #     escaped_accepted = Hanami::CygUtils::Escape.url(accepted) # => "ftps://ftp.example.org"
+      #     escaped_rejected = Hanami::CygUtils::Escape.url(rejected) # => ""
       #   %>
       #
       #   <a href="<%= escaped_accepted %>">FTP</a>

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "hanami/utils/query_string"
+require "hanami/cyg_utils/query_string"
 require "bigdecimal"
 
-RSpec.describe Hanami::Utils::QueryString do
+RSpec.describe Hanami::CygUtils::QueryString do
   describe ".call" do
     context "when ::Hash" do
       it "serializes input" do

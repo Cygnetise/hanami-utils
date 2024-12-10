@@ -3,7 +3,7 @@
 require "cgi"
 
 module Hanami
-  module Utils
+  module CygUtils
     # URI query string transformations
     #
     # @since 1.2.0

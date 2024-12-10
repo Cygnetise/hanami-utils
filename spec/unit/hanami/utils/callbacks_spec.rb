@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "hanami/utils/callbacks"
+require "hanami/cyg_utils/callbacks"
 
-Hanami::Utils::Callbacks::Chain.class_eval do
+Hanami::CygUtils::Callbacks::Chain.class_eval do
   def size
     @chain.size
   end
@@ -43,9 +43,9 @@ class Action
   end
 end
 
-RSpec.describe Hanami::Utils::Callbacks::Chain do
+RSpec.describe Hanami::CygUtils::Callbacks::Chain do
   before do
-    @chain = Hanami::Utils::Callbacks::Chain.new
+    @chain = Hanami::CygUtils::Callbacks::Chain.new
   end
 
   describe "#append" do
@@ -265,17 +265,17 @@ RSpec.describe Hanami::Utils::Callbacks::Chain do
   end
 end
 
-RSpec.describe Hanami::Utils::Callbacks::Factory do
+RSpec.describe Hanami::CygUtils::Callbacks::Factory do
   describe ".fabricate" do
     before do
-      @callback = Hanami::Utils::Callbacks::Factory.fabricate(callback)
+      @callback = Hanami::CygUtils::Callbacks::Factory.fabricate(callback)
     end
 
     describe "when a callable is passed" do
       let(:callback) { Callable.new }
 
       it "fabricates a Callback" do
-        expect(@callback).to be_kind_of(Hanami::Utils::Callbacks::Callback)
+        expect(@callback).to be_kind_of(Hanami::CygUtils::Callbacks::Callback)
       end
 
       it "wraps the given callback" do
@@ -287,7 +287,7 @@ RSpec.describe Hanami::Utils::Callbacks::Factory do
       let(:callback) { :symbolize! }
 
       it "fabricates a MethodCallback" do
-        expect(@callback).to be_kind_of(Hanami::Utils::Callbacks::MethodCallback)
+        expect(@callback).to be_kind_of(Hanami::CygUtils::Callbacks::MethodCallback)
       end
 
       it "wraps the given callback" do
@@ -297,9 +297,9 @@ RSpec.describe Hanami::Utils::Callbacks::Factory do
   end
 end
 
-RSpec.describe Hanami::Utils::Callbacks::Callback do
+RSpec.describe Hanami::CygUtils::Callbacks::Callback do
   before do
-    @callback = Hanami::Utils::Callbacks::Callback.new(callback)
+    @callback = Hanami::CygUtils::Callbacks::Callback.new(callback)
   end
 
   let(:callback) { proc { |params| logger.push("set_article: #{params[:id]}") } }
@@ -313,9 +313,9 @@ RSpec.describe Hanami::Utils::Callbacks::Callback do
   end
 end
 
-RSpec.describe Hanami::Utils::Callbacks::MethodCallback do
+RSpec.describe Hanami::CygUtils::Callbacks::MethodCallback do
   before do
-    @callback = Hanami::Utils::Callbacks::MethodCallback.new(callback)
+    @callback = Hanami::CygUtils::Callbacks::MethodCallback.new(callback)
   end
 
   let(:callback) { :set_article }
@@ -329,7 +329,7 @@ RSpec.describe Hanami::Utils::Callbacks::MethodCallback do
   end
 
   it "implements #hash" do
-    cb = Hanami::Utils::Callbacks::MethodCallback.new(callback)
+    cb = Hanami::CygUtils::Callbacks::MethodCallback.new(callback)
     expect(cb.send(:hash)).to eq(@callback.send(:hash))
   end
 end

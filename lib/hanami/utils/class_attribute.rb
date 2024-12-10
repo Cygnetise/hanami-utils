@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 require "set"
-require "hanami/utils/duplicable"
+require "hanami/cyg_utils/duplicable"
 
 module Hanami
-  module Utils
+  module CygUtils
     # Inheritable class level variable accessors.
     # @since 0.1.0
     #
-    # @see Hanami::Utils::ClassAttribute::ClassMethods
+    # @see Hanami::CygUtils::ClassAttribute::ClassMethods
     module ClassAttribute
       # @api private
       def self.included(base)
@@ -31,10 +31,10 @@ module Hanami
         # @since 0.1.0
         #
         # @example
-        #   require 'hanami/utils/class_attribute'
+        #   require 'hanami/cyg_utils/class_attribute'
         #
         #   class Vehicle
-        #     include Hanami::Utils::ClassAttribute
+        #     include Hanami::CygUtils::ClassAttribute
         #     class_attribute :engines, :wheels
         #
         #     self.engines = 0

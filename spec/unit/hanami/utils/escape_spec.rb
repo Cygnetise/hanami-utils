@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require "hanami/utils"
-require "hanami/utils/escape"
+require "hanami/cyg_utils/escape"
 require "date"
 
-RSpec.describe Hanami::Utils::Escape do
-  let(:mod) { Hanami::Utils::Escape }
+RSpec.describe Hanami::CygUtils::Escape do
+  let(:mod) { Hanami::CygUtils::Escape }
 
   TEST_ENCODINGS = Encoding.name_list.each_with_object(["UTF-8"]) do |encoding, result|
     test_string = "<script>".encode(Encoding::UTF_8)
@@ -23,7 +23,7 @@ RSpec.describe Hanami::Utils::Escape do
     TEST_ENCODINGS.each do |encoding|
       describe encoding.to_s do
         it "doesn't escape safe string" do
-          input  = Hanami::Utils::Escape::SafeString.new("&")
+          input  = Hanami::CygUtils::Escape::SafeString.new("&")
           result = mod.html(input.encode(encoding))
           expect(result).to eq "&"
         end
@@ -133,7 +133,7 @@ RSpec.describe Hanami::Utils::Escape do
     TEST_ENCODINGS.each do |encoding|
       describe encoding.to_s do
         it "doesn't escape safe string" do
-          input  = Hanami::Utils::Escape::SafeString.new("&")
+          input  = Hanami::CygUtils::Escape::SafeString.new("&")
           result = mod.html_attribute(input.encode(encoding))
           expect(result).to eq "&"
         end
@@ -286,7 +286,7 @@ RSpec.describe Hanami::Utils::Escape do
     TEST_ENCODINGS.each do |encoding|
       describe encoding.to_s do
         it "doesn't escape safe string" do
-          input  = Hanami::Utils::Escape::SafeString.new("javascript:alert(0);")
+          input  = Hanami::CygUtils::Escape::SafeString.new("javascript:alert(0);")
           result = mod.url(input.encode(encoding))
           expect(result).to eq "javascript:alert(0);"
         end

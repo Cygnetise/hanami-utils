@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "hanami/utils/basic_object"
-require "hanami/utils/class_attribute"
-require "hanami/utils/hash"
+require "hanami/cyg_utils/basic_object"
+require "hanami/cyg_utils/class_attribute"
+require "hanami/cyg_utils/hash"
 
 module Hanami
   # Hanami Interactor
@@ -12,7 +12,7 @@ module Hanami
     # Result of an operation
     #
     # @since 0.3.5
-    class Result < Utils::BasicObject
+    class Result < CygUtils::BasicObject
       # Concrete methods
       #
       # @since 0.3.5
@@ -595,7 +595,7 @@ module Hanami
     # @api private
     def self.extended(interactor)
       interactor.class_eval do
-        include Utils::ClassAttribute
+        include CygUtils::ClassAttribute
 
         class_attribute :exposures
         self.exposures = {}

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "hanami/utils/files"
+require "hanami/cyg_utils/files"
 require "securerandom"
-require "hanami/utils/io"
+require "hanami/cyg_utils/io"
 
-RSpec.describe Hanami::Utils::Files do
+RSpec.describe Hanami::CygUtils::Files do
   let(:root) { Pathname.new(Dir.pwd).join("tmp", SecureRandom.uuid).tap(&:mkpath) }
 
   after do
@@ -75,7 +75,7 @@ RSpec.describe Hanami::Utils::Files do
     end
 
     it "rewrites an existing file with given contents" do
-      Hanami::Utils::IO.silence_warnings do
+      Hanami::CygUtils::IO.silence_warnings do
         path = root.join("rewrite")
         described_class.write(path, "Hello\nWorld")
         described_class.rewrite(path, "Ciao Mondo")
@@ -87,7 +87,7 @@ RSpec.describe Hanami::Utils::Files do
     end
 
     it "raises an error when intermediate directories aren't present" do
-      Hanami::Utils::IO.silence_warnings do
+      Hanami::CygUtils::IO.silence_warnings do
         path = root.join("path", "to", "file", "rewrite")
 
         expect { described_class.rewrite(path, "Hello") }.to raise_error do |exception|
@@ -98,7 +98,7 @@ RSpec.describe Hanami::Utils::Files do
     end
 
     it "raises an error when the file was not found" do
-      Hanami::Utils::IO.silence_warnings do
+      Hanami::CygUtils::IO.silence_warnings do
         path = root.join("rewrite_not_found")
 
         expect { described_class.rewrite(path, "Hello") }.to raise_error do |exception|
@@ -248,7 +248,7 @@ RSpec.describe Hanami::Utils::Files do
       expect(path).to have_content(expected)
     end
 
-    # https://github.com/hanami/utils/issues/348
+    # https://github.com/hanami/cyg_utils/issues/348
     it "adds a line at the top of a file that doesn't end with a newline" do
       path = root.join("unshift_missing_newline.rb")
       content = "get '/tires', to: 'sunshine#index'"
@@ -294,7 +294,7 @@ RSpec.describe Hanami::Utils::Files do
       expect(path).to have_content(expected)
     end
 
-    # https://github.com/hanami/utils/issues/348
+    # https://github.com/hanami/cyg_utils/issues/348
     it "adds a line at the bottom of a file that doesn't end with a newline" do
       path = root.join("append_missing_newline.rb")
       content = "root to: 'home#index'"

@@ -3,9 +3,9 @@
 require "set"
 require "json"
 require "logger"
-require "hanami/utils/json"
-require "hanami/utils/class_attribute"
-require "hanami/utils/query_string"
+require "hanami/cyg_utils/json"
+require "hanami/cyg_utils/class_attribute"
+require "hanami/cyg_utils/query_string"
 
 module Hanami
   class Logger < ::Logger
@@ -32,7 +32,7 @@ module Hanami
       # @api private
       RESERVED_KEYS = %i[app severity time].freeze
 
-      include Utils::ClassAttribute
+      include CygUtils::ClassAttribute
 
       class_attribute :subclasses
       self.subclasses = Set.new
@@ -138,7 +138,7 @@ module Hanami
         elsif hash.key?(:params)
           "#{hash.values.join(SEPARATOR)}#{NEW_LINE}"
         else
-          "#{Utils::QueryString.call(hash[:message] || hash)}#{NEW_LINE}"
+          "#{CygUtils::QueryString.call(hash[:message] || hash)}#{NEW_LINE}"
         end
       end
 
@@ -176,7 +176,7 @@ module Hanami
       # @api private
       def _format(hash)
         hash[:time] = hash[:time].utc.iso8601
-        Hanami::Utils::Json.generate(hash) + NEW_LINE
+        Hanami::CygUtils::Json.generate(hash) + NEW_LINE
       end
     end
   end

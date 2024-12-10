@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "logger"
-require "hanami/utils/shell_color"
+require "hanami/cyg_utils/shell_color"
 
 module Hanami
   class Logger < ::Logger
@@ -98,7 +98,7 @@ module Hanami
       def colorize(message, color:)
         return message if color.nil?
 
-        Hanami::Utils::ShellColor.call(message, color: color)
+        Hanami::CygUtils::ShellColor.call(message, color: color)
       end
     end
   end

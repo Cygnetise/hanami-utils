@@ -471,7 +471,7 @@ TEST_PLURALS = {
   "half" => "halves",
   "scarf" => "scarves",
   "dwarf" => "dwarves",
-  # https://github.com/hanami/utils/issues/289
+  # https://github.com/hanami/cyg_utils/issues/289
   "original fee" => "original fees",
   # vocal + fe => ves
   "knife" => "knives",
@@ -543,11 +543,11 @@ TEST_PLURALS = {
   "car" => "cars",
   "area" => "areas",
   "hive" => "hives",
-  # https://github.com/hanami/utils/issues/106
+  # https://github.com/hanami/cyg_utils/issues/106
   "album" => "albums",
-  # https://github.com/hanami/utils/issues/173
+  # https://github.com/hanami/cyg_utils/issues/173
   "kitten" => "kittens",
-  # https://github.com/hanami/utils/issues/289
+  # https://github.com/hanami/cyg_utils/issues/289
   "fee" => "fees"
 }.freeze
 
@@ -612,16 +612,16 @@ TEST_SINGULARS = {
   "ibis" => "ibises",
   "trellis" => "trellises",
   "kiss" => "kisses",
-  # https://github.com/hanami/utils/issues/106
+  # https://github.com/hanami/cyg_utils/issues/106
   "album" => "albums",
-  # https://github.com/hanami/utils/issues/217
+  # https://github.com/hanami/cyg_utils/issues/217
   "phase" => "phases",
   "exercise" => "exercises",
   "release" => "releases"
 }.merge(TEST_PLURALS)
 
-require "hanami/utils/inflector"
-Hanami::Utils::Inflector.inflections do
+require "hanami/cyg_utils/inflector"
+Hanami::CygUtils::Inflector.inflections do
   exception   "analysis", "analyses"
   exception   "alga",     "algae"
   uncountable "music", "butter"

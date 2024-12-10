@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "hanami/utils/duplicable"
+require "hanami/cyg_utils/duplicable"
 require "transproc"
 
 module Hanami
-  module Utils
+  module CygUtils
     # Hash on steroids
     # @since 0.1.0
     #
@@ -12,8 +12,8 @@ module Hanami
       # @since 0.6.0
       # @api private
       #
-      # @see Hanami::Utils::Hash#deep_dup
-      # @see Hanami::Utils::Duplicable
+      # @see Hanami::CygUtils::Hash#deep_dup
+      # @see Hanami::CygUtils::Duplicable
       DUPLICATE_LOGIC = proc do |value|
         case value
         when Hash
@@ -37,9 +37,9 @@ module Hanami
       # @see .deep_symbolize
       #
       # @example Basic Usage
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
-      #   hash = Hanami::Utils::Hash.symbolize("foo" => "bar", "baz" => {"a" => 1})
+      #   hash = Hanami::CygUtils::Hash.symbolize("foo" => "bar", "baz" => {"a" => 1})
       #     # => {:foo=>"bar", :baz=>{"a"=>1}}
       #
       #   hash.class
@@ -59,9 +59,9 @@ module Hanami
       # @see .symbolize
       #
       # @example Basic Usage
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
-      #   hash = Hanami::Utils::Hash.deep_symbolize("foo" => "bar", "baz" => {"a" => 1})
+      #   hash = Hanami::CygUtils::Hash.deep_symbolize("foo" => "bar", "baz" => {"a" => 1})
       #     # => {:foo=>"bar", :baz=>{a:=>1}}
       #
       #   hash.class
@@ -79,9 +79,9 @@ module Hanami
       # @since 1.0.1
       #
       # @example Basic Usage
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
-      #   hash = Hanami::Utils::Hash.stringify(foo: "bar", baz: {a: 1})
+      #   hash = Hanami::CygUtils::Hash.stringify(foo: "bar", baz: {a: 1})
       #     # => {"foo"=>"bar", "baz"=>{:a=>1}}
       #
       #   hash.class
@@ -99,9 +99,9 @@ module Hanami
       # @since 1.1.1
       #
       # @example Basic Usage
-      #   require "hanami/utils/hash"
+      #   require "hanami/cyg_utils/hash"
       #
-      #   hash = Hanami::Utils::Hash.deep_stringify(foo: "bar", baz: {a: 1})
+      #   hash = Hanami::CygUtils::Hash.deep_stringify(foo: "bar", baz: {a: 1})
       #     # => {"foo"=>"bar", "baz"=>{"a"=>1}}
       #
       #   hash.class
@@ -135,10 +135,10 @@ module Hanami
       # @since 1.0.1
       #
       # @example Basic Usage
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
       #   input  = { "a" => { "b" => { "c" => [1, 2, 3] } } }
-      #   output = Hanami::Utils::Hash.deep_dup(input)
+      #   output = Hanami::CygUtils::Hash.deep_dup(input)
       #     # => {"a"=>{"b"=>{"c"=>[1,2,3]}}}
       #
       #   output.class
@@ -181,7 +181,7 @@ module Hanami
       # @since 1.1.0
       #
       # @example Basic Usage
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #   require 'ostruct'
       #
       #   class Data < OpenStruct
@@ -192,7 +192,7 @@ module Hanami
       #
       #   input = Data.new("foo" => "bar", baz => [Data.new(hello: "world")])
       #
-      #   Hanami::Utils::Hash.deep_serialize(input)
+      #   Hanami::CygUtils::Hash.deep_serialize(input)
       #     # => {:foo=>"bar", :baz=>[{:hello=>"world"}]}
       def self.deep_serialize(input)
         input.to_hash.each_with_object({}) do |(key, value), output|
@@ -215,7 +215,7 @@ module Hanami
       # @param hash [#to_h] the value we want to use to initialize this instance
       # @param blk [Proc] define the default value
       #
-      # @return [Hanami::Utils::Hash] self
+      # @return [Hanami::CygUtils::Hash] self
       #
       # @since 0.1.0
       # @deprecated
@@ -223,15 +223,15 @@ module Hanami
       # @see http://www.ruby-doc.org/core/Hash.html#method-c-5B-5D
       #
       # @example Passing a Hash
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
-      #   hash = Hanami::Utils::Hash.new('l' => 23)
+      #   hash = Hanami::CygUtils::Hash.new('l' => 23)
       #   hash['l'] # => 23
       #
       # @example Passing a block for default
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
-      #   hash = Hanami::Utils::Hash.new {|h,k| h[k] = [] }
+      #   hash = Hanami::CygUtils::Hash.new {|h,k| h[k] = [] }
       #   hash['foo'].push 'bar'
       #
       #   hash.to_h # => { 'foo' => ['bar'] }
@@ -245,12 +245,12 @@ module Hanami
       # @return [Hash] self
       #
       # @since 0.1.0
-      # @deprecated Use {Hanami::Utils::Hash.symbolize}
+      # @deprecated Use {Hanami::CygUtils::Hash.symbolize}
       #
       # @example
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
-      #   hash = Hanami::Utils::Hash.new 'a' => 23, 'b' => { 'c' => ['x','y','z'] }
+      #   hash = Hanami::CygUtils::Hash.new 'a' => 23, 'b' => { 'c' => ['x','y','z'] }
       #   hash.symbolize!
       #
       #   hash.keys    # => [:a, :b]
@@ -269,12 +269,12 @@ module Hanami
       # @return [Hash] self
       #
       # @since 1.0.0
-      # @deprecated Use {Hanami::Utils::Hash.deep_symbolize}
+      # @deprecated Use {Hanami::CygUtils::Hash.deep_symbolize}
       #
       # @example
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
-      #   hash = Hanami::Utils::Hash.new 'a' => 23, 'b' => { 'c' => ['x','y','z'] }
+      #   hash = Hanami::CygUtils::Hash.new 'a' => 23, 'b' => { 'c' => ['x','y','z'] }
       #   hash.deep_symbolize!
       #
       #   hash.keys    # => [:a, :b]
@@ -295,12 +295,12 @@ module Hanami
       # @return [Hash] self
       #
       # @since 0.3.2
-      # @deprecated Use {Hanami::Utils::Hash.stringify}
+      # @deprecated Use {Hanami::CygUtils::Hash.stringify}
       #
       # @example
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
-      #   hash = Hanami::Utils::Hash.new a: 23, b: { c: ['x','y','z'] }
+      #   hash = Hanami::CygUtils::Hash.new a: 23, b: { c: ['x','y','z'] }
       #   hash.stringify!
       #
       #   hash.keys    # => [:a, :b]
@@ -316,17 +316,17 @@ module Hanami
         self
       end
 
-      # Returns a deep copy of the current Hanami::Utils::Hash
+      # Returns a deep copy of the current Hanami::CygUtils::Hash
       #
       # @return [Hash] a deep duplicated self
       #
       # @since 0.3.1
-      # @deprecated Use {Hanami::Utils::Hash.deep_dup}
+      # @deprecated Use {Hanami::CygUtils::Hash.deep_dup}
       #
       # @example
-      #   require 'hanami/utils/hash'
+      #   require 'hanami/cyg_utils/hash'
       #
-      #   hash = Hanami::Utils::Hash.new(
+      #   hash = Hanami::CygUtils::Hash.new(
       #     'nil'        => nil,
       #     'false'      => false,
       #     'true'       => true,
@@ -339,13 +339,13 @@ module Hanami
       #     'rational'   => Rational(0.3),
       #     'string'     => 'foo bar',
       #     'hash'       => { a: 1, b: 'two', c: :three },
-      #     'u_hash'     => Hanami::Utils::Hash.new({ a: 1, b: 'two', c: :three })
+      #     'u_hash'     => Hanami::CygUtils::Hash.new({ a: 1, b: 'two', c: :three })
       #   )
       #
       #   duped = hash.deep_dup
       #
-      #   hash.class  # => Hanami::Utils::Hash
-      #   duped.class # => Hanami::Utils::Hash
+      #   hash.class  # => Hanami::CygUtils::Hash
+      #   duped.class # => Hanami::CygUtils::Hash
       #
       #   hash.object_id  # => 70147385937100
       #   duped.object_id # => 70147385950620
@@ -376,8 +376,8 @@ module Hanami
       #   duped['hash'][:b] # => "TWO"
       #   hash['hash'][:b]  # => "two"
       #
-      #   # it deeply duplicates Hanami::Utils::Hash, by preserving the class
-      #   duped['u_hash'].class # => Hanami::Utils::Hash
+      #   # it deeply duplicates Hanami::CygUtils::Hash, by preserving the class
+      #   duped['u_hash'].class # => Hanami::CygUtils::Hash
       def deep_dup
         self.class.new.tap do |result|
           @hash.each { |k, v| result[k] = Duplicable.dup(v, &DUPLICATE_LOGIC) }

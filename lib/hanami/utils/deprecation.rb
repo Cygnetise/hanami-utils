@@ -3,7 +3,7 @@
 require "hanami/utils"
 
 module Hanami
-  module Utils
+  module CygUtils
     # Prints a deprecation warning when initialized
     #
     # @since 0.3.1
@@ -15,11 +15,11 @@ module Hanami
       # @since 0.3.1
       #
       # @example Direct usage
-      #   require 'hanami/utils/deprecation'
+      #   require 'hanami/cyg_utils/deprecation'
       #
       #   class Engine
       #     def old_method
-      #       Hanami::Utils::Deprecation.new('old_method is deprecated, please use new_method')
+      #       Hanami::CygUtils::Deprecation.new('old_method is deprecated, please use new_method')
       #       new_method
       #     end
       #
@@ -33,11 +33,11 @@ module Hanami
       #     # => started
       #
       # @example Indirect usage
-      #   require 'hanami/utils/deprecation'
+      #   require 'hanami/cyg_utils/deprecation'
       #
       #   class Engine
       #     def old_method
-      #       Hanami::Utils::Deprecation.new('old_method is deprecated, please use new_method')
+      #       Hanami::CygUtils::Deprecation.new('old_method is deprecated, please use new_method')
       #       new_method
       #     end
       #

@@ -6,7 +6,7 @@ require "time"
 require "pathname"
 require "bigdecimal"
 require "hanami/utils"
-require "hanami/utils/string"
+require "hanami/cyg_utils/string"
 
 unless defined?(Boolean)
   # Defines top level constant Boolean, so it can be easily used by other libraries
@@ -18,7 +18,7 @@ unless defined?(Boolean)
 end
 
 module Hanami
-  module Utils
+  module CygUtils
     # Kernel utilities
     # @since 0.1.1
     module Kernel # rubocop:disable Metrics/ModuleLength
@@ -27,7 +27,7 @@ module Hanami
       # @since 0.3.3
       # @api private
       #
-      # @see Hanami::Utils::Kernel.Integer
+      # @see Hanami::CygUtils::Kernel.Integer
       NUMERIC_MATCHER = %r{\A([\d\/\.\+iE]+|NaN|Infinity)\z}.freeze
 
       # @since 0.8.0
@@ -60,19 +60,19 @@ module Hanami
       # @see http://www.ruby-doc.org/core/Array.html#method-i-uniq
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Array(nil)              # => []
-      #   Hanami::Utils::Kernel.Array(true)             # => [true]
-      #   Hanami::Utils::Kernel.Array(false)            # => [false]
-      #   Hanami::Utils::Kernel.Array(1)                # => [1]
-      #   Hanami::Utils::Kernel.Array([1])              # => [1]
-      #   Hanami::Utils::Kernel.Array([1, [2]])         # => [1,2]
-      #   Hanami::Utils::Kernel.Array([1, [2, nil]])    # => [1,2]
-      #   Hanami::Utils::Kernel.Array([1, [2, nil, 1]]) # => [1,2]
+      #   Hanami::CygUtils::Kernel.Array(nil)              # => []
+      #   Hanami::CygUtils::Kernel.Array(true)             # => [true]
+      #   Hanami::CygUtils::Kernel.Array(false)            # => [false]
+      #   Hanami::CygUtils::Kernel.Array(1)                # => [1]
+      #   Hanami::CygUtils::Kernel.Array([1])              # => [1]
+      #   Hanami::CygUtils::Kernel.Array([1, [2]])         # => [1,2]
+      #   Hanami::CygUtils::Kernel.Array([1, [2, nil]])    # => [1,2]
+      #   Hanami::CygUtils::Kernel.Array([1, [2, nil, 1]]) # => [1,2]
       #
       # @example Array Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   ResultSet = Struct.new(:records) do
       #     def to_a
@@ -87,10 +87,10 @@ module Hanami
       #   end
       #
       #   set = ResultSet.new([2,1,3])
-      #   Hanami::Utils::Kernel.Array(set)              # => [1,2,3]
+      #   Hanami::CygUtils::Kernel.Array(set)              # => [1,2,3]
       #
       #   response = Response.new(200, {}, 'hello')
-      #   Hanami::Utils::Kernel.Array(response)         # => [200, {}, "hello"]
+      #   Hanami::CygUtils::Kernel.Array(response)         # => [200, {}, "hello"]
       def self.Array(arg)
         super(arg).dup.tap do |a|
           a.flatten!
@@ -110,21 +110,21 @@ module Hanami
       # @since 0.1.1
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Set(nil)              # => #<Set: {}>
-      #   Hanami::Utils::Kernel.Set(true)             # => #<Set: {true}>
-      #   Hanami::Utils::Kernel.Set(false)            # => #<Set: {false}>
-      #   Hanami::Utils::Kernel.Set(1)                # => #<Set: {1}>
-      #   Hanami::Utils::Kernel.Set([1])              # => #<Set: {1}>
-      #   Hanami::Utils::Kernel.Set([1, 1])           # => #<Set: {1}>
-      #   Hanami::Utils::Kernel.Set([1, [2]])         # => #<Set: {1, [2]}>
-      #   Hanami::Utils::Kernel.Set([1, [2, nil]])    # => #<Set: {1, [2, nil]}>
-      #   Hanami::Utils::Kernel.Set({a: 1})           # => #<Set: {[:a, 1]}>
+      #   Hanami::CygUtils::Kernel.Set(nil)              # => #<Set: {}>
+      #   Hanami::CygUtils::Kernel.Set(true)             # => #<Set: {true}>
+      #   Hanami::CygUtils::Kernel.Set(false)            # => #<Set: {false}>
+      #   Hanami::CygUtils::Kernel.Set(1)                # => #<Set: {1}>
+      #   Hanami::CygUtils::Kernel.Set([1])              # => #<Set: {1}>
+      #   Hanami::CygUtils::Kernel.Set([1, 1])           # => #<Set: {1}>
+      #   Hanami::CygUtils::Kernel.Set([1, [2]])         # => #<Set: {1, [2]}>
+      #   Hanami::CygUtils::Kernel.Set([1, [2, nil]])    # => #<Set: {1, [2, nil]}>
+      #   Hanami::CygUtils::Kernel.Set({a: 1})           # => #<Set: {[:a, 1]}>
       #
       # @example Set Interface
       #   require 'securerandom'
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   UuidSet = Class.new do
       #     def initialize(*uuids)
@@ -139,13 +139,13 @@ module Hanami
       #   end
       #
       #   uuids = UuidSet.new(SecureRandom.uuid)
-      #   Hanami::Utils::Kernel.Set(uuids)
+      #   Hanami::CygUtils::Kernel.Set(uuids)
       #     # => #<Set: {"daa798b4-630c-4e11-b29d-92f0b1c7d075"}>
       #
       # @example Unchecked Exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Set(BasicObject.new) # => TypeError
+      #   Hanami::CygUtils::Kernel.Set(BasicObject.new) # => TypeError
       def self.Set(arg)
         if arg.respond_to?(:to_set)
           arg.to_set
@@ -169,15 +169,15 @@ module Hanami
       # @see http://www.ruby-doc.org/core/Kernel.html#method-i-Hash
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Hash(nil)                 # => {}
-      #   Hanami::Utils::Kernel.Hash({a: 1})              # => { :a => 1 }
-      #   Hanami::Utils::Kernel.Hash([[:a, 1]])           # => { :a => 1 }
-      #   Hanami::Utils::Kernel.Hash(Set.new([[:a, 1]]))  # => { :a => 1 }
+      #   Hanami::CygUtils::Kernel.Hash(nil)                 # => {}
+      #   Hanami::CygUtils::Kernel.Hash({a: 1})              # => { :a => 1 }
+      #   Hanami::CygUtils::Kernel.Hash([[:a, 1]])           # => { :a => 1 }
+      #   Hanami::CygUtils::Kernel.Hash(Set.new([[:a, 1]]))  # => { :a => 1 }
       #
       # @example Hash Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   Room = Class.new do
       #     def initialize(*args)
@@ -200,16 +200,16 @@ module Hanami
       #   end
       #
       #   room = Room.new(:key, 123456)
-      #   Hanami::Utils::Kernel.Hash(room)        # => { :key => 123456 }
+      #   Hanami::CygUtils::Kernel.Hash(room)        # => { :key => 123456 }
       #
       #   record = Record.new(name: 'L')
-      #   Hanami::Utils::Kernel.Hash(record)      # => { :name => "L" }
+      #   Hanami::CygUtils::Kernel.Hash(record)      # => { :name => "L" }
       #
       # @example Unchecked Exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.Hash(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Hash(input) # => TypeError
       def self.Hash(arg)
         if arg.respond_to?(:to_h)
           arg.to_h
@@ -237,23 +237,23 @@ module Hanami
       #
       # @example Basic Usage
       #   require 'bigdecimal'
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Integer(1)                        # => 1
-      #   Hanami::Utils::Kernel.Integer(1.2)                      # => 1
-      #   Hanami::Utils::Kernel.Integer(011)                      # => 9
-      #   Hanami::Utils::Kernel.Integer(0xf5)                     # => 245
-      #   Hanami::Utils::Kernel.Integer("1")                      # => 1
-      #   Hanami::Utils::Kernel.Integer(Rational(0.3))            # => 0
-      #   Hanami::Utils::Kernel.Integer(Complex(0.3))             # => 0
-      #   Hanami::Utils::Kernel.Integer(BigDecimal(12.00001))     # => 12
-      #   Hanami::Utils::Kernel.Integer(176605528590345446089)
+      #   Hanami::CygUtils::Kernel.Integer(1)                        # => 1
+      #   Hanami::CygUtils::Kernel.Integer(1.2)                      # => 1
+      #   Hanami::CygUtils::Kernel.Integer(011)                      # => 9
+      #   Hanami::CygUtils::Kernel.Integer(0xf5)                     # => 245
+      #   Hanami::CygUtils::Kernel.Integer("1")                      # => 1
+      #   Hanami::CygUtils::Kernel.Integer(Rational(0.3))            # => 0
+      #   Hanami::CygUtils::Kernel.Integer(Complex(0.3))             # => 0
+      #   Hanami::CygUtils::Kernel.Integer(BigDecimal(12.00001))     # => 12
+      #   Hanami::CygUtils::Kernel.Integer(176605528590345446089)
       #     # => 176605528590345446089
       #
-      #   Hanami::Utils::Kernel.Integer(Time.now)                 # => 1396947161
+      #   Hanami::CygUtils::Kernel.Integer(Time.now)                 # => 1396947161
       #
       # @example Integer Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   UltimateAnswer = Struct.new(:question) do
       #     def to_int
@@ -262,71 +262,71 @@ module Hanami
       #   end
       #
       #   answer = UltimateAnswer.new('The Ultimate Question of Life')
-      #   Hanami::Utils::Kernel.Integer(answer) # => 42
+      #   Hanami::CygUtils::Kernel.Integer(answer) # => 42
       #
       # @example Error Handling
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # nil
       #   Kernel.Integer(nil)               # => TypeError
-      #   Hanami::Utils::Kernel.Integer(nil) # => 0
+      #   Hanami::CygUtils::Kernel.Integer(nil) # => 0
       #
       #   # float represented as a string
       #   Kernel.Integer("23.4")               # => TypeError
-      #   Hanami::Utils::Kernel.Integer("23.4") # => 23
+      #   Hanami::CygUtils::Kernel.Integer("23.4") # => 23
       #
       #   # rational represented as a string
       #   Kernel.Integer("2/3")               # => TypeError
-      #   Hanami::Utils::Kernel.Integer("2/3") # => 2
+      #   Hanami::CygUtils::Kernel.Integer("2/3") # => 2
       #
       #   # complex represented as a string
       #   Kernel.Integer("2.5/1")               # => TypeError
-      #   Hanami::Utils::Kernel.Integer("2.5/1") # => 2
+      #   Hanami::CygUtils::Kernel.Integer("2.5/1") # => 2
       #
       # @example Unchecked Exceptions
       #   require 'date'
       #   require 'bigdecimal'
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # Missing #to_int and #to_i
       #   input = OpenStruct.new(color: 'purple')
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       #
       #   # String that doesn't represent an integer
       #   input = 'hello'
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       #
       #   # When true
       #   input = true
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       #
       #   # When false
       #   input = false
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       #
       #   # When Date
       #   input = Date.today
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       #
       #   # When DateTime
       #   input = DateTime.now
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       #
       #   # bigdecimal infinity
       #   input = BigDecimal("Infinity")
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       #
       #   # bigdecimal NaN
       #   input = BigDecimal("NaN")
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       #
       #   # big rational
       #   input = Rational(-8) ** Rational(1, 3)
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       #
       #   # big complex represented as a string
       #   input = Complex(2, 3)
-      #   Hanami::Utils::Kernel.Integer(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Integer(input) # => TypeError
       def self.Integer(arg)
         super(arg)
       rescue ArgumentError, TypeError, NoMethodError
@@ -357,21 +357,21 @@ module Hanami
       # @see http://www.ruby-doc.org/stdlib/libdoc/bigdecimal/rdoc/BigDecimal.html
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.BigDecimal(1)                        # => 1
-      #   Hanami::Utils::Kernel.BigDecimal(1.2)                      # => 1
-      #   Hanami::Utils::Kernel.BigDecimal(011)                      # => 9
-      #   Hanami::Utils::Kernel.BigDecimal(0xf5)                     # => 245
-      #   Hanami::Utils::Kernel.BigDecimal("1")                      # => 1
-      #   Hanami::Utils::Kernel.BigDecimal(Rational(0.3))            # => 0.3
-      #   Hanami::Utils::Kernel.BigDecimal(Complex(0.3))             # => 0.3
-      #   Hanami::Utils::Kernel.BigDecimal(BigDecimal(12.00001))     # => 12.00001
-      #   Hanami::Utils::Kernel.BigDecimal(176605528590345446089)
+      #   Hanami::CygUtils::Kernel.BigDecimal(1)                        # => 1
+      #   Hanami::CygUtils::Kernel.BigDecimal(1.2)                      # => 1
+      #   Hanami::CygUtils::Kernel.BigDecimal(011)                      # => 9
+      #   Hanami::CygUtils::Kernel.BigDecimal(0xf5)                     # => 245
+      #   Hanami::CygUtils::Kernel.BigDecimal("1")                      # => 1
+      #   Hanami::CygUtils::Kernel.BigDecimal(Rational(0.3))            # => 0.3
+      #   Hanami::CygUtils::Kernel.BigDecimal(Complex(0.3))             # => 0.3
+      #   Hanami::CygUtils::Kernel.BigDecimal(BigDecimal(12.00001))     # => 12.00001
+      #   Hanami::CygUtils::Kernel.BigDecimal(176605528590345446089)
       #     # => 176605528590345446089
       #
       # @example BigDecimal Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   UltimateAnswer = Struct.new(:question) do
       #     def to_d
@@ -380,43 +380,43 @@ module Hanami
       #   end
       #
       #   answer = UltimateAnswer.new('The Ultimate Question of Life')
-      #   Hanami::Utils::Kernel.BigDecimal(answer)
+      #   Hanami::CygUtils::Kernel.BigDecimal(answer)
       #     # => #<BigDecimal:7fabfd148588,'0.42E2',9(27)>
       #
       # @example Unchecked exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # When nil
       #   input = nil
-      #   Hanami::Utils::Kernel.BigDecimal(nil) # => TypeError
+      #   Hanami::CygUtils::Kernel.BigDecimal(nil) # => TypeError
       #
       #   # When true
       #   input = true
-      #   Hanami::Utils::Kernel.BigDecimal(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.BigDecimal(input) # => TypeError
       #
       #   # When false
       #   input = false
-      #   Hanami::Utils::Kernel.BigDecimal(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.BigDecimal(input) # => TypeError
       #
       #   # When Date
       #   input = Date.today
-      #   Hanami::Utils::Kernel.BigDecimal(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.BigDecimal(input) # => TypeError
       #
       #   # When DateTime
       #   input = DateTime.now
-      #   Hanami::Utils::Kernel.BigDecimal(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.BigDecimal(input) # => TypeError
       #
       #   # When Time
       #   input = Time.now
-      #   Hanami::Utils::Kernel.BigDecimal(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.BigDecimal(input) # => TypeError
       #
       #   # String that doesn't represent a big decimal
       #   input = 'hello'
-      #   Hanami::Utils::Kernel.BigDecimal(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.BigDecimal(input) # => TypeError
       #
       #   # Missing #respond_to?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.BigDecimal(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.BigDecimal(input) # => TypeError
       #
       def self.BigDecimal(arg, precision = ::Float::DIG)
         case arg
@@ -452,23 +452,23 @@ module Hanami
       #
       # @example Basic Usage
       #   require 'bigdecimal'
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Float(1)                        # => 1.0
-      #   Hanami::Utils::Kernel.Float(1.2)                      # => 1.2
-      #   Hanami::Utils::Kernel.Float(011)                      # => 9.0
-      #   Hanami::Utils::Kernel.Float(0xf5)                     # => 245.0
-      #   Hanami::Utils::Kernel.Float("1")                      # => 1.0
-      #   Hanami::Utils::Kernel.Float(Rational(0.3))            # => 0.3
-      #   Hanami::Utils::Kernel.Float(Complex(0.3))             # => 0.3
-      #   Hanami::Utils::Kernel.Float(BigDecimal(12.00001))     # => 12.00001
-      #   Hanami::Utils::Kernel.Float(176605528590345446089)
+      #   Hanami::CygUtils::Kernel.Float(1)                        # => 1.0
+      #   Hanami::CygUtils::Kernel.Float(1.2)                      # => 1.2
+      #   Hanami::CygUtils::Kernel.Float(011)                      # => 9.0
+      #   Hanami::CygUtils::Kernel.Float(0xf5)                     # => 245.0
+      #   Hanami::CygUtils::Kernel.Float("1")                      # => 1.0
+      #   Hanami::CygUtils::Kernel.Float(Rational(0.3))            # => 0.3
+      #   Hanami::CygUtils::Kernel.Float(Complex(0.3))             # => 0.3
+      #   Hanami::CygUtils::Kernel.Float(BigDecimal(12.00001))     # => 12.00001
+      #   Hanami::CygUtils::Kernel.Float(176605528590345446089)
       #     # => 176605528590345446089.0
       #
-      #   Hanami::Utils::Kernel.Float(Time.now) # => 397750945.515169
+      #   Hanami::CygUtils::Kernel.Float(Time.now) # => 397750945.515169
       #
       # @example Float Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   class Pi
       #     def to_f
@@ -477,76 +477,76 @@ module Hanami
       #   end
       #
       #   pi = Pi.new
-      #   Hanami::Utils::Kernel.Float(pi) # => 3.14
+      #   Hanami::CygUtils::Kernel.Float(pi) # => 3.14
       #
       # @example Error Handling
       #   require 'bigdecimal'
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # nil
       #   Kernel.Float(nil)               # => TypeError
-      #   Hanami::Utils::Kernel.Float(nil) # => 0.0
+      #   Hanami::CygUtils::Kernel.Float(nil) # => 0.0
       #
       #   # float represented as a string
       #   Kernel.Float("23.4")               # => TypeError
-      #   Hanami::Utils::Kernel.Float("23.4") # => 23.4
+      #   Hanami::CygUtils::Kernel.Float("23.4") # => 23.4
       #
       #   # rational represented as a string
       #   Kernel.Float("2/3")               # => TypeError
-      #   Hanami::Utils::Kernel.Float("2/3") # => 2.0
+      #   Hanami::CygUtils::Kernel.Float("2/3") # => 2.0
       #
       #   # complex represented as a string
       #   Kernel.Float("2.5/1")               # => TypeError
-      #   Hanami::Utils::Kernel.Float("2.5/1") # => 2.5
+      #   Hanami::CygUtils::Kernel.Float("2.5/1") # => 2.5
       #
       #   # bigdecimal infinity
       #   input = BigDecimal("Infinity")
-      #   Hanami::Utils::Kernel.Float(input) # => Infinity
+      #   Hanami::CygUtils::Kernel.Float(input) # => Infinity
       #
       #   # bigdecimal NaN
       #   input = BigDecimal("NaN")
-      #   Hanami::Utils::Kernel.Float(input) # => NaN
+      #   Hanami::CygUtils::Kernel.Float(input) # => NaN
       #
       # @example Unchecked Exceptions
       #   require 'date'
       #   require 'bigdecimal'
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # Missing #to_f
       #   input = OpenStruct.new(color: 'purple')
-      #   Hanami::Utils::Kernel.Float(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Float(input) # => TypeError
       #
       #   # When true
       #   input = true
-      #   Hanami::Utils::Kernel.Float(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Float(input) # => TypeError
       #
       #   # When false
       #   input = false
-      #   Hanami::Utils::Kernel.Float(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Float(input) # => TypeError
       #
       #   # When Date
       #   input = Date.today
-      #   Hanami::Utils::Kernel.Float(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Float(input) # => TypeError
       #
       #   # When DateTime
       #   input = DateTime.now
-      #   Hanami::Utils::Kernel.Float(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Float(input) # => TypeError
       #
       #   # Missing #nil?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.Float(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Float(input) # => TypeError
       #
       #   # String that doesn't represent a float
       #   input = 'hello'
-      #   Hanami::Utils::Kernel.Float(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Float(input) # => TypeError
       #
       #   # big rational
       #   input = Rational(-8) ** Rational(1, 3)
-      #   Hanami::Utils::Kernel.Float(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Float(input) # => TypeError
       #
       #   # big complex represented as a string
       #   input = Complex(2, 3)
-      #   Hanami::Utils::Kernel.Float(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Float(input) # => TypeError
       def self.Float(arg)
         super(arg)
       rescue ArgumentError, TypeError
@@ -582,43 +582,43 @@ module Hanami
       # @example Basic Usage
       #   require 'date'
       #   require 'bigdecimal'
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.String('')                            # => ""
-      #   Hanami::Utils::Kernel.String('ciao')                        # => "ciao"
+      #   Hanami::CygUtils::Kernel.String('')                            # => ""
+      #   Hanami::CygUtils::Kernel.String('ciao')                        # => "ciao"
       #
-      #   Hanami::Utils::Kernel.String(true)                          # => "true"
-      #   Hanami::Utils::Kernel.String(false)                         # => "false"
+      #   Hanami::CygUtils::Kernel.String(true)                          # => "true"
+      #   Hanami::CygUtils::Kernel.String(false)                         # => "false"
       #
-      #   Hanami::Utils::Kernel.String(:hanami)                        # => "hanami"
+      #   Hanami::CygUtils::Kernel.String(:hanami)                        # => "hanami"
       #
-      #   Hanami::Utils::Kernel.String(Picture)                       # => "Picture" # class
-      #   Hanami::Utils::Kernel.String(Hanami)                         # => "Hanami" # module
+      #   Hanami::CygUtils::Kernel.String(Picture)                       # => "Picture" # class
+      #   Hanami::CygUtils::Kernel.String(Hanami)                         # => "Hanami" # module
       #
-      #   Hanami::Utils::Kernel.String([])                            # => "[]"
-      #   Hanami::Utils::Kernel.String([1,2,3])                       # => "[1, 2, 3]"
-      #   Hanami::Utils::Kernel.String(%w[a b c])                     # => "[\"a\", \"b\", \"c\"]"
+      #   Hanami::CygUtils::Kernel.String([])                            # => "[]"
+      #   Hanami::CygUtils::Kernel.String([1,2,3])                       # => "[1, 2, 3]"
+      #   Hanami::CygUtils::Kernel.String(%w[a b c])                     # => "[\"a\", \"b\", \"c\"]"
       #
-      #   Hanami::Utils::Kernel.String({})                            # => "{}"
-      #   Hanami::Utils::Kernel.String({a: 1, 'b' => 'c'})            # => "{:a=>1, \"b\"=>\"c\"}"
+      #   Hanami::CygUtils::Kernel.String({})                            # => "{}"
+      #   Hanami::CygUtils::Kernel.String({a: 1, 'b' => 'c'})            # => "{:a=>1, \"b\"=>\"c\"}"
       #
-      #   Hanami::Utils::Kernel.String(Date.today)                    # => "2014-04-11"
-      #   Hanami::Utils::Kernel.String(DateTime.now)                  # => "2014-04-11T10:15:06+02:00"
-      #   Hanami::Utils::Kernel.String(Time.now)                      # => "2014-04-11 10:15:53 +0200"
+      #   Hanami::CygUtils::Kernel.String(Date.today)                    # => "2014-04-11"
+      #   Hanami::CygUtils::Kernel.String(DateTime.now)                  # => "2014-04-11T10:15:06+02:00"
+      #   Hanami::CygUtils::Kernel.String(Time.now)                      # => "2014-04-11 10:15:53 +0200"
       #
-      #   Hanami::Utils::Kernel.String(1)                             # => "1"
-      #   Hanami::Utils::Kernel.String(3.14)                          # => "3.14"
-      #   Hanami::Utils::Kernel.String(013)                           # => "11"
-      #   Hanami::Utils::Kernel.String(0xc0ff33)                      # => "12648243"
+      #   Hanami::CygUtils::Kernel.String(1)                             # => "1"
+      #   Hanami::CygUtils::Kernel.String(3.14)                          # => "3.14"
+      #   Hanami::CygUtils::Kernel.String(013)                           # => "11"
+      #   Hanami::CygUtils::Kernel.String(0xc0ff33)                      # => "12648243"
       #
-      #   Hanami::Utils::Kernel.String(Rational(-22))                 # => "-22/1"
-      #   Hanami::Utils::Kernel.String(Complex(11, 2))                # => "11+2i"
-      #   Hanami::Utils::Kernel.String(BigDecimal(7944.2343, 10))     # => "0.79442343E4"
-      #   Hanami::Utils::Kernel.String(BigDecimal('Infinity'))        # => "Infinity"
-      #   Hanami::Utils::Kernel.String(BigDecimal('NaN'))             # => "Infinity"
+      #   Hanami::CygUtils::Kernel.String(Rational(-22))                 # => "-22/1"
+      #   Hanami::CygUtils::Kernel.String(Complex(11, 2))                # => "11+2i"
+      #   Hanami::CygUtils::Kernel.String(BigDecimal(7944.2343, 10))     # => "0.79442343E4"
+      #   Hanami::CygUtils::Kernel.String(BigDecimal('Infinity'))        # => "Infinity"
+      #   Hanami::CygUtils::Kernel.String(BigDecimal('NaN'))             # => "Infinity"
       #
       # @example String interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   SimpleObject = Class.new(BasicObject) do
       #     def to_s
@@ -635,22 +635,22 @@ module Hanami
       #   simple = SimpleObject.new
       #   isbn   = Isbn.new(123)
       #
-      #   Hanami::Utils::Kernel.String(simple) # => "simple object"
-      #   Hanami::Utils::Kernel.String(isbn)   # => "123"
+      #   Hanami::CygUtils::Kernel.String(simple) # => "simple object"
+      #   Hanami::CygUtils::Kernel.String(isbn)   # => "123"
       #
       # @example Comparison with Ruby
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # nil
       #   Kernel.String(nil)               # => ""
-      #   Hanami::Utils::Kernel.String(nil) # => ""
+      #   Hanami::CygUtils::Kernel.String(nil) # => ""
       #
       # @example Unchecked Exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # Missing #to_s or #to_str
       #   input = BaseObject.new
-      #   Hanami::Utils::Kernel.String(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.String(input) # => TypeError
       def self.String(arg)
         arg = arg.to_str if arg.respond_to?(:to_str)
         super(arg)
@@ -669,25 +669,25 @@ module Hanami
       # @since 0.1.1
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Date(Date.today)
+      #   Hanami::CygUtils::Kernel.Date(Date.today)
       #     # => #<Date: 2014-04-17 ((2456765j,0s,0n),+0s,2299161j)>
       #
-      #   Hanami::Utils::Kernel.Date(DateTime.now)
+      #   Hanami::CygUtils::Kernel.Date(DateTime.now)
       #     # => #<Date: 2014-04-17 ((2456765j,0s,0n),+0s,2299161j)>
       #
-      #   Hanami::Utils::Kernel.Date(Time.now)
+      #   Hanami::CygUtils::Kernel.Date(Time.now)
       #     # => #<Date: 2014-04-17 ((2456765j,0s,0n),+0s,2299161j)>
       #
-      #   Hanami::Utils::Kernel.Date('2014-04-17')
+      #   Hanami::CygUtils::Kernel.Date('2014-04-17')
       #     # => #<Date: 2014-04-17 ((2456765j,0s,0n),+0s,2299161j)>
       #
-      #   Hanami::Utils::Kernel.Date('2014-04-17 22:37:15')
+      #   Hanami::CygUtils::Kernel.Date('2014-04-17 22:37:15')
       #     # => #<Date: 2014-04-17 ((2456765j,0s,0n),+0s,2299161j)>
       #
       # @example Date Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   class Christmas
       #     def to_date
@@ -695,23 +695,23 @@ module Hanami
       #     end
       #   end
       #
-      #   Hanami::Utils::Kernel.Date(Christmas.new)
+      #   Hanami::CygUtils::Kernel.Date(Christmas.new)
       #     # => #<Date: 2014-12-25 ((2457017j,0s,0n),+0s,2299161j)>
       #
       # @example Unchecked Exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # nil
       #   input = nil
-      #   Hanami::Utils::Kernel.Date(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Date(input) # => TypeError
       #
       #   # Missing #respond_to?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.Date(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Date(input) # => TypeError
       #
       #   # Missing #to_s?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.Date(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Date(input) # => TypeError
       def self.Date(arg)
         if arg.respond_to?(:to_date)
           arg.to_date
@@ -733,29 +733,29 @@ module Hanami
       # @since 0.1.1
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.DateTime(3483943)
+      #   Hanami::CygUtils::Kernel.DateTime(3483943)
       #     # => Time.at(3483943).to_datetime
       #     # #<DateTime: 1970-02-10T08:45:43+01:00 ((2440628j,27943s,0n),+3600s,2299161j)>
       #
-      #   Hanami::Utils::Kernel.DateTime(DateTime.now)
+      #   Hanami::CygUtils::Kernel.DateTime(DateTime.now)
       #     # => #<DateTime: 2014-04-18T09:33:49+02:00 ((2456766j,27229s,690849000n),+7200s,2299161j)>
       #
-      #   Hanami::Utils::Kernel.DateTime(Date.today)
+      #   Hanami::CygUtils::Kernel.DateTime(Date.today)
       #     # => #<DateTime: 2014-04-18T00:00:00+00:00 ((2456766j,0s,0n),+0s,2299161j)>
       #
-      #   Hanami::Utils::Kernel.Date(Time.now)
+      #   Hanami::CygUtils::Kernel.Date(Time.now)
       #     # => #<DateTime: 2014-04-18T09:34:49+02:00 ((2456766j,27289s,832907000n),+7200s,2299161j)>
       #
-      #   Hanami::Utils::Kernel.DateTime('2014-04-18')
+      #   Hanami::CygUtils::Kernel.DateTime('2014-04-18')
       #     # => #<DateTime: 2014-04-18T00:00:00+00:00 ((2456766j,0s,0n),+0s,2299161j)>
       #
-      #   Hanami::Utils::Kernel.DateTime('2014-04-18 09:35:42')
+      #   Hanami::CygUtils::Kernel.DateTime('2014-04-18 09:35:42')
       #     # => #<DateTime: 2014-04-18T09:35:42+00:00 ((2456766j,34542s,0n),+0s,2299161j)>
       #
       # @example DateTime Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   class NewYearEve
       #     def to_datetime
@@ -763,23 +763,23 @@ module Hanami
       #     end
       #   end
       #
-      #   Hanami::Utils::Kernel.Date(NewYearEve.new)
+      #   Hanami::CygUtils::Kernel.Date(NewYearEve.new)
       #     # => #<DateTime: 2014-01-01T00:00:00+00:00 ((2456659j,0s,0n),+0s,2299161j)>
       #
       # @example Unchecked Exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # When nil
       #   input = nil
-      #   Hanami::Utils::Kernel.DateTime(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.DateTime(input) # => TypeError
       #
       #   # Missing #respond_to?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.DateTime(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.DateTime(input) # => TypeError
       #
       #   # Missing #to_s?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.DateTime(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.DateTime(input) # => TypeError
       def self.DateTime(arg)
         case arg
         when ->(a) { a.respond_to?(:to_datetime) } then arg.to_datetime
@@ -802,25 +802,25 @@ module Hanami
       # @since 0.1.1
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Time(Time.now)
+      #   Hanami::CygUtils::Kernel.Time(Time.now)
       #     # => 2014-04-18 15:56:39 +0200
       #
-      #   Hanami::Utils::Kernel.Time(DateTime.now)
+      #   Hanami::CygUtils::Kernel.Time(DateTime.now)
       #     # => 2014-04-18 15:56:39 +0200
       #
-      #   Hanami::Utils::Kernel.Time(Date.today)
+      #   Hanami::CygUtils::Kernel.Time(Date.today)
       #     # => 2014-04-18 00:00:00 +0200
       #
-      #   Hanami::Utils::Kernel.Time('2014-04-18')
+      #   Hanami::CygUtils::Kernel.Time('2014-04-18')
       #     # => 2014-04-18 00:00:00 +0200
       #
-      #   Hanami::Utils::Kernel.Time('2014-04-18 15:58:02')
+      #   Hanami::CygUtils::Kernel.Time('2014-04-18 15:58:02')
       #     # => 2014-04-18 15:58:02 +0200
       #
       # @example Time Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   class Epoch
       #     def to_time
@@ -828,23 +828,23 @@ module Hanami
       #     end
       #   end
       #
-      #   Hanami::Utils::Kernel.Time(Epoch.new)
+      #   Hanami::CygUtils::Kernel.Time(Epoch.new)
       #     # => 1970-01-01 01:00:00 +0100
       #
       # @example Unchecked Exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # When nil
       #   input = nil
-      #   Hanami::Utils::Kernel.Time(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Time(input) # => TypeError
       #
       #   # Missing #respond_to?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.Time(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Time(input) # => TypeError
       #
       #   # Missing #to_s?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.Time(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Time(input) # => TypeError
       def self.Time(arg)
         case arg
         when ->(a) { a.respond_to?(:to_time) } then arg.to_time
@@ -867,17 +867,17 @@ module Hanami
       # @since 0.1.1
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Boolean(nil)                      # => false
-      #   Hanami::Utils::Kernel.Boolean(0)                        # => false
-      #   Hanami::Utils::Kernel.Boolean(1)                        # => true
-      #   Hanami::Utils::Kernel.Boolean('0')                      # => false
-      #   Hanami::Utils::Kernel.Boolean('1')                      # => true
-      #   Hanami::Utils::Kernel.Boolean(Object.new)               # => true
+      #   Hanami::CygUtils::Kernel.Boolean(nil)                      # => false
+      #   Hanami::CygUtils::Kernel.Boolean(0)                        # => false
+      #   Hanami::CygUtils::Kernel.Boolean(1)                        # => true
+      #   Hanami::CygUtils::Kernel.Boolean('0')                      # => false
+      #   Hanami::CygUtils::Kernel.Boolean('1')                      # => true
+      #   Hanami::CygUtils::Kernel.Boolean(Object.new)               # => true
       #
       # @example Boolean Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   Answer = Struct.new(:answer) do
       #     def to_bool
@@ -889,19 +889,19 @@ module Hanami
       #   end
       #
       #   answer = Answer.new('yes')
-      #   Hanami::Utils::Kernel.Boolean(answer) # => true
+      #   Hanami::CygUtils::Kernel.Boolean(answer) # => true
       #
       # @example Unchecked Exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # Missing #respond_to?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.Boolean(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Boolean(input) # => TypeError
       def self.Boolean(arg)
         case arg
         when Numeric
           arg.to_i == BOOLEAN_TRUE_INTEGER
-        when ::String, Utils::String, BOOLEAN_FALSE_STRING
+        when ::String, CygUtils::String, BOOLEAN_FALSE_STRING
           Boolean(arg.to_i)
         when ->(a) { a.respond_to?(:to_bool) }
           arg.to_bool
@@ -923,13 +923,13 @@ module Hanami
       # @since 0.1.2
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Pathname(Pathname.new('/path/to')) # => #<Pathname:/path/to>
-      #   Hanami::Utils::Kernel.Pathname('/path/to')               # => #<Pathname:/path/to>
+      #   Hanami::CygUtils::Kernel.Pathname(Pathname.new('/path/to')) # => #<Pathname:/path/to>
+      #   Hanami::CygUtils::Kernel.Pathname('/path/to')               # => #<Pathname:/path/to>
       #
       # @example Pathname Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   class HomePath
       #     def to_pathname
@@ -937,10 +937,10 @@ module Hanami
       #     end
       #   end
       #
-      #   Hanami::Utils::Kernel.Pathname(HomePath.new) # => #<Pathname:/Users/luca>
+      #   Hanami::CygUtils::Kernel.Pathname(HomePath.new) # => #<Pathname:/Users/luca>
       #
       # @example String Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   class RootPath
       #     def to_str
@@ -948,18 +948,18 @@ module Hanami
       #     end
       #   end
       #
-      #   Hanami::Utils::Kernel.Pathname(RootPath.new) # => #<Pathname:/>
+      #   Hanami::CygUtils::Kernel.Pathname(RootPath.new) # => #<Pathname:/>
       #
       # @example Unchecked Exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # When nil
       #   input = nil
-      #   Hanami::Utils::Kernel.Pathname(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Pathname(input) # => TypeError
       #
       #   # Missing #respond_to?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.Pathname(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Pathname(input) # => TypeError
       def self.Pathname(arg)
         case arg
         when ->(a) { a.respond_to?(:to_pathname) } then arg.to_pathname
@@ -981,13 +981,13 @@ module Hanami
       # @since 0.2.0
       #
       # @example Basic Usage
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
-      #   Hanami::Utils::Kernel.Symbol(:hello)  # => :hello
-      #   Hanami::Utils::Kernel.Symbol('hello') # => :hello
+      #   Hanami::CygUtils::Kernel.Symbol(:hello)  # => :hello
+      #   Hanami::CygUtils::Kernel.Symbol('hello') # => :hello
       #
       # @example Symbol Interface
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   class StatusSymbol
       #     def to_sym
@@ -995,22 +995,22 @@ module Hanami
       #     end
       #   end
       #
-      #   Hanami::Utils::Kernel.Symbol(StatusSymbol.new) # => :success
+      #   Hanami::CygUtils::Kernel.Symbol(StatusSymbol.new) # => :success
       #
       # @example Unchecked Exceptions
-      #   require 'hanami/utils/kernel'
+      #   require 'hanami/cyg_utils/kernel'
       #
       #   # When nil
       #   input = nil
-      #   Hanami::Utils::Kernel.Symbol(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Symbol(input) # => TypeError
       #
       #   # When empty string
       #   input = ''
-      #   Hanami::Utils::Kernel.Symbol(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Symbol(input) # => TypeError
       #
       #   # Missing #respond_to?
       #   input = BasicObject.new
-      #   Hanami::Utils::Kernel.Symbol(input) # => TypeError
+      #   Hanami::CygUtils::Kernel.Symbol(input) # => TypeError
       def self.Symbol(arg)
         case arg
         when "" then raise TypeError.new "can't convert #{inspect_type_error(arg)}into Symbol"

@@ -2,9 +2,9 @@
 
 require_relative __dir__ + "../../../../../support/isolation_spec_helper"
 Bundler.require(:default, :development)
-require "hanami/utils/inflector"
+require "hanami/cyg_utils/inflector"
 
-RSpec.describe Hanami::Utils::Inflector do
+RSpec.describe Hanami::CygUtils::Inflector do
   describe ".exception" do
     context "without inflecto" do
       it "registers exception" do

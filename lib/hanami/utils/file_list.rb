@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Hanami
-  module Utils
+  module CygUtils
     # Ordered file list, consistent across operating systems
     #
     # @since 0.9.0
